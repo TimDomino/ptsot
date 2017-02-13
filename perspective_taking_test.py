@@ -123,6 +123,7 @@ def create_test_window(SUBJECT_ID):
     text_bottom = ax.text(0.0, -0.15, 'text_bottom', fontsize=15, horizontalalignment='center')
     text_top = ax.text(0.0, 1.15, 'text_top', fontsize=15, horizontalalignment='center')
     text_example = ax.text(-1.0, 0.58, 'text_example', fontsize=15, horizontalalignment='center')
+    text_instruction = ax.text(0.0, -1.2, 'text_instruction', fontsize=15, horizontalalignment='center')
 
     plt.xlim(-1.5, 1.5)
     plt.xticks([])
@@ -138,13 +139,14 @@ def create_test_window(SUBJECT_ID):
     builtins.text_bottom = text_bottom
     builtins.text_top = text_top
     builtins.text_example = text_example
+    builtins.text_instruction = text_instruction
     test_fig.canvas.mpl_connect('button_press_event', on_click)
     test_fig.canvas.mpl_connect('key_press_event', on_key_press)
 
 
 def load_task(INDEX):
     task_id_as_text = str(INDEX) + '. '
-    builtins.answer_ax.set_title(task_id_as_text + TASK_DESCRIPTIONS[INDEX])
+    builtins.text_instruction.set_text(task_id_as_text + TASK_DESCRIPTIONS[INDEX])
     
     if INDEX == 0: # example case
         builtins.answer_line.set_data([0.0, -0.86], [0.0, 0.52])
