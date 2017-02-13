@@ -18,4 +18,7 @@ the test GUI is loaded and shows the instructions and example task, followed by 
 The name of the output file is `results-ID.txt`, where ID is the entered participant ID. On each line, it shows the
 task number, correct response angle (deg), actually logged response angle (deg) and absolute angular error (deg) in a comma-separated fashion. The last
 line gives the average angular error (deg) over all 12 trials as a participant's total score.
+
+## Screenshot
+![Screenshot](screenshot.png)
  
