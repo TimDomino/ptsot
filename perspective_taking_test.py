@@ -66,9 +66,8 @@ INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspect
 # main function
 ##################
 def main():
-    subject_id = input("Please insert your participant ID: ")
-
     matplotlib.rcParams['toolbar'] = 'None'
+    subject_id = input("Please insert your participant ID: ")
     result_file = open('results-' + str(subject_id) + '.txt', 'w+')
 
     create_test_window(subject_id)
@@ -107,24 +106,24 @@ def create_test_window(SUBJECT_ID):
     pic_ax.imshow(picture)
 
     # user input subplot
-    ax = test_fig.add_subplot(2, 1, 2)
-    ax.axis('equal')
+    input_ax = test_fig.add_subplot(2, 1, 2)
+    input_ax.axis('equal')
 
     circle = patches.Circle((0, 0), 1.015, facecolor='none', edgecolor='black', linewidth=3)
-    ax.add_patch(circle)
+    input_ax.add_patch(circle)
 
     upright_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='black')
-    ax.add_line(upright_line)
-    ax.add_line(lines.Line2D((0, -0.03), (1, 0.95), linewidth=3, color='black')) # left arrow wedge
-    ax.add_line(lines.Line2D((0, 0.03), (1, 0.95), linewidth=3, color='black')) # right arrow wedge
+    input_ax.add_line(upright_line)
+    input_ax.add_line(lines.Line2D((0, -0.03), (1, 0.95), linewidth=3, color='black')) # left arrow wedge
+    input_ax.add_line(lines.Line2D((0, 0.03), (1, 0.95), linewidth=3, color='black')) # right arrow wedge
 
     answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='orange')
-    ax.add_line(answer_line)
+    input_ax.add_line(answer_line)
 
-    text_bottom = ax.text(0.0, -0.15, 'text_bottom', fontsize=15, horizontalalignment='center')
-    text_top = ax.text(0.0, 1.15, 'text_top', fontsize=15, horizontalalignment='center')
-    text_example = ax.text(-1.0, 0.58, 'text_example', fontsize=15, horizontalalignment='center')
-    text_instruction = ax.text(0.0, -1.2, 'text_instruction', fontsize=15, horizontalalignment='center')
+    text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=15, horizontalalignment='center')
+    text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=15, horizontalalignment='center')
+    text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=15, horizontalalignment='center')
+    text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=15, horizontalalignment='center')
 
     plt.xlim(-1.5, 1.5)
     plt.xticks([])
@@ -136,7 +135,6 @@ def create_test_window(SUBJECT_ID):
     builtins.fig = test_fig
     builtins.answer_line = answer_line
     builtins.picture_ax = pic_ax
-    builtins.answer_ax = ax
     builtins.text_bottom = text_bottom
     builtins.text_top = text_top
     builtins.text_example = text_example
@@ -182,7 +180,6 @@ def on_click(EVENT):
         return
     length = euclidean_distance([0, 0], [EVENT.xdata, EVENT.ydata])
     builtins.answer_line.set_data([0.0, EVENT.xdata/length], [0.0, EVENT.ydata/length])
-    compute_response_line_angle()
     builtins.fig.canvas.draw()
 
 
@@ -191,18 +188,19 @@ def on_key_press(EVENT):
         if builtins.task_id > 0: # exclude example
             correct_angle = round(TASK_ITEMS[builtins.task_id][3], 4)
             logged_angle = round(compute_response_line_angle(), 4)
-            error = round(difference_between_positive_angles(correct_angle, logged_angle), 4)
+            error = round(angle_difference(correct_angle, logged_angle), 4)
             builtins.result_file.write(str(builtins.task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
             builtins.errors.append(error)
 
         builtins.task_id += 1
 
-        if builtins.task_id < len(TASK_ITEMS):
+        if builtins.task_id < len(TASK_ITEMS): # move on to the next task
             load_task(builtins.task_id)
-        else:
+        else: # no more tasks, terminate the test
             avg_error = np.mean(builtins.errors)
             builtins.result_file.write('Average Error: ' + str(round(avg_error, 4)))
             builtins.result_file.close()
+            print('The test has terminated successfully. Results saved to file ' + builtins.result_file.name + '.')
             sys.exit(0)
 
 
@@ -224,6 +222,7 @@ def compute_response_line_angle():
 
     angle = angle_between_normalized_2d_vectors(upright_endpoint, answer_line_endpoint) * 180.0/math.pi
 
+    # convert angle to range (0; 360]
     if angle < 0:
         angle *= -1
     else:
@@ -240,7 +239,7 @@ def angle_between_normalized_2d_vectors(VEC1, VEC2):
     return math.atan2(VEC1[0]*VEC2[1] - VEC1[1]*VEC2[0], VEC1[0]*VEC2[0] + VEC1[1]*VEC2[1])
 
 
-def difference_between_positive_angles(ANGLE_1, ANGLE_2):
+def angle_difference(ANGLE_1, ANGLE_2):
     phi = math.fmod(abs(ANGLE_2-ANGLE_1), 360)
     distance = 360 - phi if phi > 180 else phi
     return distance
