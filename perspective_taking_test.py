@@ -18,22 +18,20 @@ TASK_TEXT_1 = "Imagine you are standing at the"
 TASK_TEXT_2 = "and facing the"
 TASK_TEXT_3 = "Point to the"
 
-TASK_ITEMS = [ ("flower", "tree", "cat"),
-               ("car", "traffic light", "stop sign"),
-               ("cat", "tree", "car"),
-               ("stop sign", "cat", "house"),
-               ("cat", "flower", "car"),
-               ("stop sign", "tree", "traffic light"),
-               ("stop sign", "flower", "car"),
-               ("traffic light", "house", "flower"),
-               ("house", "flower", "stop sign"),
-               ("car", "stop sign", "tree"),
-               ("traffic light", "cat", "car"),
-               ("tree", "flower", "house"),
-               ("cat", "house", "traffic light")
+TASK_ITEMS = [ ("flower", "tree", "cat", 301), # example
+               ("car", "traffic light", "stop sign", 123),
+               ("cat", "tree", "car", 237),
+               ("stop sign", "cat", "house", 83),
+               ("cat", "flower", "car", 156),
+               ("stop sign", "tree", "traffic light", 319),
+               ("stop sign", "flower", "car", 235),
+               ("traffic light", "house", "flower", 333),
+               ("house", "flower", "stop sign", 260),
+               ("car", "stop sign", "tree", 280),
+               ("traffic light", "cat", "car", 48),
+               ("tree", "flower", "house", 26),
+               ("cat", "house", "traffic light", 150)
              ]
-
-CORRECT_ANGLES = [301, 123, 237, 83, 156, 319, 235, 333, 260, 280, 48, 26, 150]
 
 INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspectives\n" + \
                    "or orientations in space. On each of the following screens you will\n" + \
@@ -191,7 +189,7 @@ def on_key_press(EVENT):
     if EVENT.key == ' ':
 
         if builtins.task_id > 0: # exclude example
-            correct_angle = round(CORRECT_ANGLES[builtins.task_id], 4)
+            correct_angle = round(TASK_ITEMS[builtins.task_id][3], 4)
             logged_angle = round(compute_line_angle(), 4)
             error = round(difference_between_positive_angles(correct_angle, logged_angle), 4)
             builtins.result_file.write(str(builtins.task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
