@@ -1,3 +1,4 @@
+# import matplotlib features
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -5,6 +6,7 @@ import matplotlib.lines as lines
 import matplotlib.patches as patches
 import numpy as np
 
+# import python libraries
 import builtins
 import math
 import sys
@@ -13,7 +15,6 @@ import time
 ##################
 # task specifications
 ##################
-
 TASK_TEXT_1 = "Imagine you are standing at the"
 TASK_TEXT_2 = "and facing the"
 TASK_TEXT_3 = "Point to the"
@@ -63,8 +64,6 @@ INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspect
 # main function
 ##################
 def main():
-
-    # retrieve subject id and open results file
     subject_id = input("Please insert your participant ID: ")
 
     matplotlib.rcParams['toolbar'] = 'None'
@@ -181,16 +180,15 @@ def on_click(EVENT):
         return
     length = euclidean_distance([0, 0], [EVENT.xdata, EVENT.ydata])
     builtins.answer_line.set_data([0.0, EVENT.xdata/length], [0.0, EVENT.ydata/length])
-    compute_line_angle()
+    compute_response_line_angle()
     builtins.fig.canvas.draw()
 
 
 def on_key_press(EVENT):
     if EVENT.key == ' ':
-
         if builtins.task_id > 0: # exclude example
             correct_angle = round(TASK_ITEMS[builtins.task_id][3], 4)
-            logged_angle = round(compute_line_angle(), 4)
+            logged_angle = round(compute_response_line_angle(), 4)
             error = round(difference_between_positive_angles(correct_angle, logged_angle), 4)
             builtins.result_file.write(str(builtins.task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
             builtins.errors.append(error)
@@ -205,6 +203,7 @@ def on_key_press(EVENT):
             builtins.result_file.close()
             sys.exit(0)
 
+
 def update_time():
     elapsed = max(300 - round(time.time()-builtins.start_time), 0)
     builtins.picture_ax.set_title("Remaining Time: " + str(elapsed))
@@ -214,21 +213,7 @@ def update_time():
 ##################
 # math helpers
 ##################
-def euclidean_distance(POINT_1, POINT_2):
-    return math.sqrt(pow(POINT_1[0]-POINT_2[0], 2) + pow(POINT_1[1]-POINT_2[1], 2))
-
-
-def angle_between_normalized_2d_vectors(VEC1, VEC2):
-    return math.atan2(VEC1[0]*VEC2[1] - VEC1[1]*VEC2[0], VEC1[0]*VEC2[0] + VEC1[1]*VEC2[1])
-
-
-def difference_between_positive_angles(ANGLE_1, ANGLE_2):
-    phi = math.fmod(abs(ANGLE_2-ANGLE_1), 360)
-    distance = 360 - phi if phi > 180 else phi
-    return distance
-
-
-def compute_line_angle():
+def compute_response_line_angle():
     answer_line_data = builtins.answer_line.get_data()
     answer_line_endpoint = (answer_line_data[0][1], answer_line_data[1][1])
     upright_endpoint = (0.0, 1.0)
@@ -244,6 +229,19 @@ def compute_line_angle():
 
     return angle
 
+
+def euclidean_distance(POINT_1, POINT_2):
+    return math.sqrt(pow(POINT_1[0]-POINT_2[0], 2) + pow(POINT_1[1]-POINT_2[1], 2))
+
+
+def angle_between_normalized_2d_vectors(VEC1, VEC2):
+    return math.atan2(VEC1[0]*VEC2[1] - VEC1[1]*VEC2[0], VEC1[0]*VEC2[0] + VEC1[1]*VEC2[1])
+
+
+def difference_between_positive_angles(ANGLE_1, ANGLE_2):
+    phi = math.fmod(abs(ANGLE_2-ANGLE_1), 360)
+    distance = 360 - phi if phi > 180 else phi
+    return distance
 
 
 if __name__ == '__main__':
