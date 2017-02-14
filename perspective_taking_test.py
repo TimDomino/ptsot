@@ -34,6 +34,8 @@ TASK_ITEMS = [ ("flower", "tree", "cat", 301), # example
                ("cat", "house", "traffic light", 150)
              ]
 
+TIME_IN_SECONDS = 5 * 60
+
 INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspectives\n" + \
                    "or orientations in space. On each of the following screens you will\n" + \
                    "see a picture of an array of objects and an \"arrow circle\" with a question\n" + \
@@ -101,7 +103,7 @@ def create_test_window(SUBJECT_ID):
     picture = mpimg.imread('object_array.png')
     plt.xticks([])
     plt.yticks([])
-    pic_ax.set_title("Remaining Time: 300")
+    pic_ax.set_title("Remaining Time: " + str(TIME_IN_SECONDS))
     pic_ax.imshow(picture)
 
     # user input subplot
@@ -205,7 +207,7 @@ def on_key_press(EVENT):
 
 
 def update_time():
-    elapsed = max(300 - round(time.time()-builtins.start_time), 0)
+    elapsed = max(TIME_IN_SECONDS - round(time.time()-builtins.start_time), 0)
     builtins.picture_ax.set_title("Remaining Time: " + str(elapsed))
     builtins.fig.canvas.draw()
 
