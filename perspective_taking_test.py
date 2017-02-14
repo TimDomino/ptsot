@@ -13,23 +13,25 @@ import time
 ##################
 # task specifications
 ##################
-TASK_DESCRIPTIONS = ['Example: Imagine you are standing at the $\mathtt{flower}$ and facing the $\mathtt{tree}$. Point to the $\mathtt{cat}$.', # example
-                     "Imagine you are standing at the $\mathtt{car}$ and facing the $\mathtt{traffic\; light}$. Point to the $\mathtt{stop\; sign}$.",
-                     "Imagine you are standing at the $\mathtt{cat}$ and facing the $\mathtt{tree}$. Point to the $\mathtt{car}$.",
-                     "Imagine you are standing at the $\mathtt{stop\; sign}$ and facing the $\mathtt{cat}$. Point to the $\mathtt{house}$.",
-                     "Imagine you are standing at the $\mathtt{cat}$ and facing the $\mathtt{flower}$. Point to the $\mathtt{car}$.",
-                     "Imagine you are standing at the $\mathtt{stop\; sign}$ and facing the $\mathtt{tree}$. Point to the $\mathtt{traffic\; light}$.",
-                     "Imagine you are standing at the $\mathtt{stop\; sign}$ and facing the $\mathtt{flower}$. Point to the $\mathtt{car}$.",
-                     "Imagine you are standing at the $\mathtt{traffic\; light}$ and facing the $\mathtt{house}$. Point to the $\mathtt{flower}$.",
-                     "Imagine you are standing at the $\mathtt{house}$ and facing the $\mathtt{flower}$. Point to the $\mathtt{stop\; sign}$.",
-                     "Imagine you are standing at the $\mathtt{car}$ and facing the $\mathtt{stop\; sign}$. Point to the $\mathtt{tree}$.",
-                     "Imagine you are standing at the $\mathtt{traffic\; light}$ and facing the $\mathtt{cat}$. Point to the $\mathtt{car}$.",
-                     "Imagine you are standing at the $\mathtt{tree}$ and facing the $\mathtt{flower}$. Point to the $\mathtt{house}$.",
-                     "Imagine you are standing at the $\mathtt{cat}$ and facing the $\mathtt{house}$. Point to the $\mathtt{traffic\; light}$."]
 
-CIRCLE_TOP_TEXTS = ["tree", "traffic light", "tree", "cat", "flower", "tree", "flower", "house", "flower", "stop sign", "cat", "flower", "house"]
+TASK_TEXT_1 = "Imagine you are standing at the"
+TASK_TEXT_2 = "and facing the"
+TASK_TEXT_3 = "Point to the"
 
-CIRCLE_MIDDLE_TEXTS = ["flower", "car", "cat", "stop sign", "cat", "stop sign", "stop sign", "traffic light", "house", "car", "traffic light", "tree", "cat"]
+TASK_ITEMS = [ ("flower", "tree", "cat"),
+               ("car", "traffic light", "stop sign"),
+               ("cat", "tree", "car"),
+               ("stop sign", "cat", "house"),
+               ("cat", "flower", "car"),
+               ("stop sign", "tree", "traffic light"),
+               ("stop sign", "flower", "car"),
+               ("traffic light", "house", "flower"),
+               ("house", "flower", "stop sign"),
+               ("car", "stop sign", "tree"),
+               ("traffic light", "cat", "car"),
+               ("tree", "flower", "house"),
+               ("cat", "house", "traffic light")
+             ]
 
 CORRECT_ANGLES = [301, 123, 237, 83, 156, 319, 235, 333, 260, 280, 48, 26, 150]
 
@@ -145,8 +147,15 @@ def create_test_window(SUBJECT_ID):
 
 
 def load_task(INDEX):
-    task_id_as_text = str(INDEX) + '. '
-    builtins.text_instruction.set_text(task_id_as_text + TASK_DESCRIPTIONS[INDEX])
+    task_id_as_text = str(INDEX) + '.'
+    item_tuple = TASK_ITEMS[INDEX]
+    located_at = item_tuple[0].replace(' ', '\; ')
+    facing_to = item_tuple[1].replace(' ', '\; ')
+    pointing_to = item_tuple[2].replace(' ', '\; ')
+
+    instruction_text = task_id_as_text + ' ' + TASK_TEXT_1 + ' $\mathtt{' + located_at + '}$ ' + TASK_TEXT_2 + \
+                       ' $\mathtt{' + facing_to + '}$. ' + TASK_TEXT_3 + ' $\mathtt{' + pointing_to + '}$.'
+    builtins.text_instruction.set_text(instruction_text)
     
     if INDEX == 0: # example case
         builtins.answer_line.set_data([0.0, -0.86], [0.0, 0.52])
@@ -161,8 +170,8 @@ def load_task(INDEX):
         builtins.start_time = time.time()
         timer.start()
     
-    builtins.text_top.set_text(CIRCLE_TOP_TEXTS[INDEX])
-    builtins.text_bottom.set_text(CIRCLE_MIDDLE_TEXTS[INDEX])
+    builtins.text_bottom.set_text(item_tuple[0])
+    builtins.text_top.set_text(item_tuple[1])
     builtins.fig.canvas.draw()
 
 
@@ -190,7 +199,7 @@ def on_key_press(EVENT):
 
         builtins.task_id += 1
 
-        if builtins.task_id < len(TASK_DESCRIPTIONS):
+        if builtins.task_id < len(TASK_ITEMS):
             load_task(builtins.task_id)
         else:
             avg_error = np.mean(builtins.errors)
