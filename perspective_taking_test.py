@@ -85,9 +85,9 @@ def main():
 # plot creator functions
 ##################
 def create_instruction_window():
-    ins_fig = plt.figure("Instructions", figsize = (12, 10))
+    ins_fig = plt.figure("Instructions", figsize = (8, 7))
     ins_ax = ins_fig.add_subplot(1, 1, 1)
-    ins_ax.text(0.01, 0, INSTRUCTION_TEXT, verticalalignment='center', fontsize=20)
+    ins_ax.text(0.01, 0, INSTRUCTION_TEXT, verticalalignment='center', fontsize=12.5)
     plt.xticks([])
     plt.yticks([])
     plt.ylim([-1.0, 1.0])
@@ -95,7 +95,7 @@ def create_instruction_window():
 
 
 def create_test_window(SUBJECT_ID):
-    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (10.5, 15))
+    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (7.5, 7.5))
 
     # object array subplot
     pic_ax = test_fig.add_subplot(2, 1, 1)
@@ -120,10 +120,10 @@ def create_test_window(SUBJECT_ID):
     answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='orange')
     input_ax.add_line(answer_line)
 
-    text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=15, horizontalalignment='center')
-    text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=15, horizontalalignment='center')
-    text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=15, horizontalalignment='center')
-    text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=15, horizontalalignment='center')
+    text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=10, horizontalalignment='center')
+    text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=10, horizontalalignment='center')
+    text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=10, horizontalalignment='center')
+    text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=10, horizontalalignment='center')
 
     plt.xlim(-1.5, 1.5)
     plt.xticks([])
