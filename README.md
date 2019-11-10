@@ -1,6 +1,6 @@
 # Perspective Taking/Spatial Orientation Test
 Electronic version of the "Perspective Taking/Spatial Orientation Test" by Hegarty, Kozhevnikov and Waller. It avoids
-the need for measuring the participants' response angles by hand and for computing the delta angle to the correct solution. The following document hosted by the Spatial Intelligence and Learning Center served as a reference for the implementation: http://spatiallearning.org/resource-info/Spatial_Ability_Tests/PTSOT.pdf (accessed 13 Feb 2017).
+the need for measuring the participants' response angles by hand and for computing the delta angle to the correct solution. The following document hosted by the Spatial Intelligence and Learning Center served as a reference for the implementation: https://www.silc.northwestern.edu/object-perspective-spatial-orientation-test/ (accessed 10 Nov 2019).
 It also mentions the two main papers the test is based on:
 
  * Hegarty, M., & Waller, D. (2004). A dissociation between mental rotation and perspective-taking spatial abilities. Intelligence, 32, 175-191.
