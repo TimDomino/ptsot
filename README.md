@@ -1,5 +1,5 @@
 # Perspective Taking/Spatial Orientation Test
-Electronic version of the "Perspective Taking/Spatial Orientation Test" by Hegarty, Kozhevnikov and Waller. It avoids
+Electronic version of the "Perspective Taking/Spatial Orientation Test" by Hegarty, Kozhevnikov and Waller (also referred to as "Object Perspective/Spatial Orientation Test"). It avoids
 the need for measuring the participants' response angles by hand and for computing the delta angle to the correct solution. The following document hosted by the Spatial Intelligence and Learning Center served as a reference for the implementation: https://www.silc.northwestern.edu/object-perspective-spatial-orientation-test/ (accessed 10 Nov 2019).
 It also mentions the two main papers the test is based on:
 
