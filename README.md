@@ -15,7 +15,7 @@ It also mentions the two main papers the test is based on:
 The test can be run by `python3 perspective_taking_test.py`. After entering the participants ID (which determines the name of the result file),
 the test GUI is loaded and shows the instructions and example task, followed by the logged trials. 
 
-The name of the output file is `results-ID.txt`, where ID is the entered participant ID. On each line, it shows the
+The name of the output file is `results-ID-STARTTIME.txt`, where ID is the entered participant ID and STARTTIME a string representing the date and time the study was started. On each line, it shows the
 task number, correct response angle (deg), actually logged response angle (deg), and absolute angular error (deg) in a comma-separated fashion. An overall result summary for all participants is stored in `results-all.txt`, where each line lists the participant ID, the mean angular error across all trials (deg), and the standard deviation of the error across all trials (deg).
 
 ## Screenshot

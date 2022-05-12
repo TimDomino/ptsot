@@ -78,7 +78,7 @@ def main():
     root.withdraw()
     while builtins.subject_id == '':
         builtins.subject_id = tkinter.simpledialog.askstring("ID", "Please enter your participant ID")
-    builtins.subject_result_file = open('results-' + str(builtins.subject_id) + '.txt', 'w+')
+    builtins.subject_result_file = open('results-' + str(builtins.subject_id) + '-at-' + time.strftime('%d-%m-%y-%H-%M') + '.txt', 'w+')
 
     subject_result_file.write('Participant ID: ' + str(builtins.subject_id) + '\n')
     subject_result_file.write('TaskID,CorrectAngle,SubmittedAngle,ErrorDifference\n')
