@@ -7,7 +7,8 @@ import matplotlib.patches as patches
 import numpy as np
 
 # import tkinter
-import tkinter.simpledialog
+import tkinter
+from tkinter import simpledialog
 
 # import python libraries
 import builtins
@@ -73,6 +74,8 @@ def main():
     matplotlib.rcParams['toolbar'] = 'None'
     builtins.subject_id = ''
 
+    root = tkinter.Tk()
+    root.withdraw()
     while builtins.subject_id == '':
         builtins.subject_id = tkinter.simpledialog.askstring("ID", "Please enter your participant ID")
     builtins.subject_result_file = open('results-' + str(builtins.subject_id) + '.txt', 'w+')
