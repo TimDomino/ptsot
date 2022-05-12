@@ -6,9 +6,13 @@ import matplotlib.lines as lines
 import matplotlib.patches as patches
 import numpy as np
 
+# import tkinter
+import tkinter.simpledialog
+
 # import python libraries
 import builtins
 import math
+import os.path
 import sys
 import time
 
@@ -67,13 +71,18 @@ INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspect
 ##################
 def main():
     matplotlib.rcParams['toolbar'] = 'None'
-    subject_id = input("Please insert your participant ID: ")
-    result_file = open('results-' + str(subject_id) + '.txt', 'w+')
+    builtins.subject_id = ''
 
-    create_test_window(subject_id)
+    while builtins.subject_id == '':
+        builtins.subject_id = tkinter.simpledialog.askstring("ID", "Please enter your participant ID")
+    builtins.subject_result_file = open('results-' + str(builtins.subject_id) + '.txt', 'w+')
+
+    subject_result_file.write('Participant ID: ' + str(builtins.subject_id) + '\n')
+    subject_result_file.write('TaskID,CorrectAngle,SubmittedAngle,ErrorDifference\n')
+
+    create_test_window()
     create_instruction_window()
 
-    builtins.result_file = result_file
     builtins.errors = []
     builtins.task_id = 0
     load_task(builtins.task_id)
@@ -94,8 +103,8 @@ def create_instruction_window():
     ins_fig.tight_layout()
 
 
-def create_test_window(SUBJECT_ID):
-    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (7.5, 7.5))
+def create_test_window():
+    test_fig = plt.figure("Perspective Taking Test", figsize = (7.5, 7.5))
 
     # object array subplot
     pic_ax = test_fig.add_subplot(2, 1, 1)
@@ -189,18 +198,26 @@ def on_key_press(EVENT):
             correct_angle = round(TASK_ITEMS[builtins.task_id][3], 4)
             logged_angle = round(compute_response_line_angle(), 4)
             error = round(angle_difference(correct_angle, logged_angle), 4)
-            builtins.result_file.write(str(builtins.task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
+            builtins.subject_result_file.write(str(builtins.task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
             builtins.errors.append(error)
 
         builtins.task_id += 1
 
         if builtins.task_id < len(TASK_ITEMS): # move on to the next task
             load_task(builtins.task_id)
-        else: # no more tasks, terminate the test
-            avg_error = np.mean(builtins.errors)
-            builtins.result_file.write('Average Error: ' + str(round(avg_error, 4)))
-            builtins.result_file.close()
-            print('The test has terminated successfully. Results saved to file ' + builtins.result_file.name + '.')
+        else: # no more tasks, terminate the test and write to overall results file
+            builtins.subject_result_file.close()
+
+            write_header_to_overall_result_file = False
+            if not os.path.exists('results-all.txt'):
+                write_header_to_overall_result_file = True
+            overall_result_file = open('results-all.txt', 'a')
+
+            if write_header_to_overall_result_file:
+                overall_result_file.write('ParticipantID,MeanError,StdDevError\n')
+            overall_result_file.write(str(builtins.subject_id) + ',' + str(round(np.mean(builtins.errors), 4)) + ',' + str(round(np.std(builtins.errors), 4)) + '\n')
+            overall_result_file.close()
+            print('The test has terminated successfully.')
             sys.exit(0)
 
 
