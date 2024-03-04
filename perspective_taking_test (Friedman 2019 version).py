@@ -118,7 +118,7 @@ def create_test_window(SUBJECT_ID):
     input_ax.add_line(lines.Line2D((0, 0.03), (1, 0.95), linewidth=3, color='black')) # right arrow wedge
 
     answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='orange')
-    example_line = lines.Line2D((0, 0), (1, 0), linewidth=3, color='red') # added example line
+    example_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='red') # added example line
     input_ax.add_line(answer_line)
     input_ax.add_line(example_line) # added example line
     text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=10, horizontalalignment='center')
@@ -161,7 +161,7 @@ def load_task(INDEX):
         text_example.set_text('cat')
 
     elif INDEX == 1: # first real example
-       builtins.example_line.set_data([0.0, 0.0], [1.0, 0.0])
+       builtins.example_line.set_data([0,0], [0,-1])
          
        '''TEMPORARY COMMENT'''
     
