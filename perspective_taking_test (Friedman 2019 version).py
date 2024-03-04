@@ -118,8 +118,9 @@ def create_test_window(SUBJECT_ID):
     input_ax.add_line(lines.Line2D((0, 0.03), (1, 0.95), linewidth=3, color='black')) # right arrow wedge
 
     answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='orange')
+    example_line = lines.Line2D((0, 0), (1, 0), linewidth=3, color='red') # added example line
     input_ax.add_line(answer_line)
-
+    input_ax.add_line(example_line) # added example line
     text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=10, horizontalalignment='center')
     text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=10, horizontalalignment='center')
     text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=10, horizontalalignment='center')
@@ -134,6 +135,7 @@ def create_test_window(SUBJECT_ID):
     # event handling
     builtins.fig = test_fig
     builtins.answer_line = answer_line
+    builtins.example_line = example_line
     builtins.picture_ax = pic_ax
     builtins.text_bottom = text_bottom
     builtins.text_top = text_top
@@ -157,6 +159,18 @@ def load_task(INDEX):
     if INDEX == 0: # example case
         builtins.answer_line.set_data([0.0, -0.86], [0.0, 0.52])
         text_example.set_text('cat')
+
+    elif INDEX == 1: # first real example
+       builtins.example_line.set_data([0.0, 0.0], [1.0, 0.0])
+         
+       '''TEMPORARY COMMENT'''
+    
+    elif INDEX == 2: # second real example
+         '''TEMPORARY COMMENT'''
+    
+    elif INDEX == 3: # third real example
+         '''TEMPORARY COMMENT'''
+    
     else:
         builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
