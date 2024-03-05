@@ -117,10 +117,20 @@ def create_test_window(SUBJECT_ID):
     input_ax.add_line(lines.Line2D((0, -0.03), (1, 0.95), linewidth=3, color='black')) # left arrow wedge
     input_ax.add_line(lines.Line2D((0, 0.03), (1, 0.95), linewidth=3, color='black')) # right arrow wedge
 
+
+    # creating main line and example lines
     answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='orange')
-    example_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='red') # added example line
+    example_line_1 = lines.Line2D((0, 0), (0, -1), linewidth=3, color='red') # added example line 1 
+    example_line_2 = lines.Line2D((0, 0), (0, -1), linewidth=3, color='green') # added example line 2
+    example_line_3 = lines.Line2D((0, 0), (0, -1), linewidth=3, color='blue') # added example line 3
+
+    # adding main line and example lines to axes
     input_ax.add_line(answer_line)
-    input_ax.add_line(example_line) # added example line
+    input_ax.add_line(example_line_1) # added example line
+    input_ax.add_line(example_line_2) # added example line
+    input_ax.add_line(example_line_3) # added example line
+
+
     text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=10, horizontalalignment='center')
     text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=10, horizontalalignment='center')
     text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=10, horizontalalignment='center')
