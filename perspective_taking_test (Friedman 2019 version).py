@@ -175,7 +175,7 @@ def load_task(INDEX):
         builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
 
-    if INDEX == 1: # first real task, start timer
+    if INDEX == 4: # first real task, start timer
         timer = builtins.fig.canvas.new_timer(interval=1000)
         timer.add_callback(update_time)
         builtins.start_time = time.time()
