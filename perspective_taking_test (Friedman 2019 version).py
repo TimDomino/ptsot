@@ -120,9 +120,9 @@ def create_test_window(SUBJECT_ID):
 
     # creating main line and example lines
     answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='orange')
-    example_line_1 = lines.Line2D((0, 0), (0, -1), linewidth=3, color='red') # added example line 1 
-    example_line_2 = lines.Line2D((0, 0), (0, -1), linewidth=3, color='green') # added example line 2
-    example_line_3 = lines.Line2D((0, 0), (0, -1), linewidth=3, color='blue') # added example line 3
+    example_line_1 = lines.Line2D((0, 0), (0, -1), visible=False, linewidth=3, color='red') # added example line 1 
+    example_line_2 = lines.Line2D((0, 0), (0, -1), visible=False, linewidth=3, color='green') # added example line 2
+    example_line_3 = lines.Line2D((0, 0), (0, -1), visible=False, linewidth=3, color='blue') # added example line 3
 
     # adding main line and example lines to axes
     input_ax.add_line(answer_line)
