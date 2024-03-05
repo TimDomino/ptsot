@@ -145,7 +145,9 @@ def create_test_window(SUBJECT_ID):
     # event handling
     builtins.fig = test_fig
     builtins.answer_line = answer_line
-    builtins.example_line = example_line
+    builtins.example_line_1 = example_line_1
+    builtins.example_line_2 = example_line_2
+    builtins.example_line_3 = example_line_3
     builtins.picture_ax = pic_ax
     builtins.text_bottom = text_bottom
     builtins.text_top = text_top
@@ -169,18 +171,6 @@ def load_task(INDEX):
     if INDEX == 0: # example case
         builtins.answer_line.set_data([0.0, -0.86], [0.0, 0.52])
         text_example.set_text('cat')
-
-    elif INDEX == 1: # first real example
-       builtins.example_line.set_data([0,0], [0,-1])
-         
-       '''TEMPORARY COMMENT'''
-    
-    elif INDEX == 2: # second real example
-         '''TEMPORARY COMMENT'''
-    
-    elif INDEX == 3: # third real example
-         '''TEMPORARY COMMENT'''
-    
     else:
         builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
@@ -216,6 +206,25 @@ def on_key_press(EVENT):
             builtins.result_file.write(str(builtins.task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
             builtins.errors.append(error)
 
+        # If the task id is between 1 and 3, show the corresponding example line
+        if 1 <= builtins.task_id <= 3:
+            if builtins.task_id == 1:
+                builtins.example_line_1.set_visible(True)
+                builtins.fig.canvas.draw()
+                plt.pause(5)
+                builtins.example_line_1.set_visible(False)
+
+            elif builtins.task_id == 2:
+                builtins.example_line_2.set_visible(True)
+                builtins.fig.canvas.draw()
+                plt.pause(5)
+                builtins.example_line_2.set_visible(False)
+            
+            elif builtins.task_id == 3:
+                builtins.example_line_3.set_visible(True)
+                builtins.fig.canvas.draw()
+                plt.pause(5)
+                builtins.example_line_3.set_visible(False)
         builtins.task_id += 1
 
         if builtins.task_id < len(TASK_ITEMS): # move on to the next task
