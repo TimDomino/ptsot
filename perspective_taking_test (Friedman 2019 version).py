@@ -126,7 +126,7 @@ def create_test_window(SUBJECT_ID):
     test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (7.5, 7.5))
 
     # object array subplot
-    pic_ax = test_fig.add_subplot(2, 1, 1)
+    pic_ax = test_fig.add_subplot(1, 2, 1)
     picture = mpimg.imread('Data/2019v_object_array.png')
     plt.xticks([])
     plt.yticks([])
@@ -134,7 +134,7 @@ def create_test_window(SUBJECT_ID):
     pic_ax.imshow(picture)
 
     # user input subplot
-    input_ax = test_fig.add_subplot(2, 1, 2)
+    input_ax = test_fig.add_subplot(1, 2, 2)
     input_ax.axis('equal')
 
     circle = patches.Circle((0, 0), 1.0, facecolor='none', edgecolor='black', linewidth=3)
