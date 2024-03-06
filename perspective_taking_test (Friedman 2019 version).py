@@ -19,6 +19,8 @@ TASK_TEXT_1 = "Imagine you are standing at the"
 TASK_TEXT_2 = "and facing the"
 TASK_TEXT_3 = "Point to the"
 
+
+# First 4 are example items, the next 12 are the actual test items
 TASK_ITEMS = [
     ("bell", "tree", "drum", 306),
     ("drum", "traffic light", "wheel", 57),
