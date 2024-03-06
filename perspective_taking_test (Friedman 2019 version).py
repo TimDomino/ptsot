@@ -23,7 +23,7 @@ TASK_TEXT_3 = "Point to the"
 # First 4 are example items, the next 12 are the actual test items
 TASK_ITEMS = [
     ("bell", "tree", "drum", 306),
-    ("drum", "traffic light", "wheel", 57),
+    ("drum", "traffic light", "wheel", 57), 
     ("bell", "tree", "barrel", 326),
     ("trash can", "drum", "bell", 49),
     ("wheel", "barrel", "traffic light", 143),
@@ -137,7 +137,7 @@ def create_test_window(SUBJECT_ID):
     input_ax = test_fig.add_subplot(2, 1, 2)
     input_ax.axis('equal')
 
-    circle = patches.Circle((0, 0), 1.015, facecolor='none', edgecolor='black', linewidth=3)
+    circle = patches.Circle((0, 0), 1.0, facecolor='none', edgecolor='black', linewidth=3)
     input_ax.add_patch(circle)
 
     upright_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='black')
@@ -148,9 +148,9 @@ def create_test_window(SUBJECT_ID):
 
     # creating main line and example lines
     answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='orange')
-    example_line_1 = lines.Line2D((0, 0), (0, -1), visible=False, linewidth=3, color='red') # added example line 1 
-    example_line_2 = lines.Line2D((0, 0), (0, -1), visible=False, linewidth=3, color='green') # added example line 2
-    example_line_3 = lines.Line2D((0, 0), (0, -1), visible=False, linewidth=3, color='blue') # added example line 3
+    example_line_1 = lines.Line2D((0, 0.838), (0, 0.544), visible=False, linewidth=3, color='red') # added example line 1 
+    example_line_2 = lines.Line2D((0, -0.56), (0, 0.83), visible=False, linewidth=3, color='red') # added example line 2
+    example_line_3 = lines.Line2D((0, 0.755), (0, 0.656), visible=False, linewidth=3, color='red') # added example line 3
 
     # adding main line and example lines to axes
     input_ax.add_line(answer_line)
@@ -197,8 +197,8 @@ def load_task(INDEX):
     builtins.text_instruction.set_text(instruction_text)
     
     if INDEX == 0: # example case
-        builtins.answer_line.set_data([0.0, -0.86], [0.0, 0.52])
-        text_example.set_text('cat')
+        builtins.answer_line.set_data([0.0, -0.809], [0.0, 0.587])
+        text_example.set_text('drum')
     else:
         builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
