@@ -127,7 +127,7 @@ def create_test_window(SUBJECT_ID):
 
     # object array subplot
     pic_ax = test_fig.add_subplot(2, 1, 1)
-    picture = mpimg.imread('object_array.png')
+    picture = mpimg.imread('Data/2019v_object_array.png')
     plt.xticks([])
     plt.yticks([])
     pic_ax.set_title("Remaining Time: " + str(TIME_IN_SECONDS))
