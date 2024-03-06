@@ -15,9 +15,19 @@ import time
 ##################
 # task specifications
 ##################
-TASK_TEXT_1 = "Imagine you are standing at the"
-TASK_TEXT_2 = "and facing the"
-TASK_TEXT_3 = "Point to the"
+# this is the text to be shown on top of the practice first example
+# (the one that was presented initially as a fixed image)
+TASK_Example_0 = ".םאתהב עיפוי וקו ןומיסה לגעמ ףקיה לע הציחל ידי לע רבכעה תרזעב ךלש הבושתה ןומיס לע ינמאתה .הנוכנה הבושתה תנמוסמ וב המגודל ליגרת ךינפל.\n" + \
+".תנמוסמה הנוכנה הבושתל ךלש הבושתה תא ימיאתה .היוצרה הבושתל העגהל רבכעה תרזעב ןומיסה לגעמ ךרואל וקה תא תא יזיזה\n" + \
+                 ".ךשמהל חוורה שקמ לע יצחל\n" 
+
+
+TASK_Example_1 = ".תנמוסמה הנוכנה הבושתל ךלש הבושתה תא ימיאתה .היוצרה הבושתל העגהל רבכעה תרזעב ןומיסה לגעמ ךרואל וקה תא תא יזיזה"
+
+
+TASK_TEXT_1 = "םוקמב תדמוע תאש י ניימד"
+TASK_TEXT_2 = "ןוויכל הנופו"
+TASK_TEXT_3 = "ןוויכל יעיבצה"
 
 
 # First 4 are example items, the next 12 are the actual test items
@@ -64,30 +74,23 @@ TASK_ITEMS = [ ("flower", "tree", "cat", 301), # example
 
 TIME_IN_SECONDS = 5 * 60
 
-INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspectives\n" + \
-                   "or orientations in space. On each of the following screens you will\n" + \
-                   "see a picture of an array of objects and an \"arrow circle\" with a question\n" + \
-                   "about the direction between some of the objects. For the question on\n" + \
-                   "each screen, you should imagine that you are standing at one object in\n" + \
-                   "the array (which will be named in the center of the circle) and facing\n" + \
-                   "another object, named at the top of the circle. Your task is to draw an\n" + \
-                   "arrow from the center object showing the direction to a third object\n" + \
-                   "from this facing orientation.\n\n" + \
-                   "Look at the sample item in the other window. In this item you are asked to\n" + \
-                   "imagine that you are standing at the flower, which is named in the center\n" + \
-                   "of the circle, and facing the tree, which is named at the top of the\n" + \
-                   "circle. Your task is to draw an arrow pointing to the cat. In the sample\n" + \
-                   "item this arrow has been drawn for you. In the test items, your task is to\n" + \
-                   "draw this arrow. Can you see that if you were at the flower facing the tree,\n" + \
-                   "the cat would be in this direction? Please ask the experimenter now if you\n" + \
-                   "have any questions about what you are required to do.\n\n" + \
-                   "There are 12 items in this test, one on each screen. For each item, the array\n" + \
-                   "of objects is shown at the top of the window and the arrow circle is shown at\n" + \
-                   "the bottom. Please do not pick up or turn the monitor, and do not make\n" + \
-                   "any marks on the maps. Try to mark the correct directions but do not spend\n" + \
-                   "too much time on any one question.\n\n" + \
-                   "You will have 5 minutes for this test. Use SPACE in the other window to\n" + \
-                   "confirm your selections."
+INSTRUCTION_TEXT_title = " (Spatial Orientation Test) בחרמב תואצמתה קדבמ \n"
+INSTRUCTION_TEXT = ".בחרמב תונוש טבמ תודוקנו םינוויכ ןיימדל ךלש תלוכיה תא ןחוב הז קדבמ\n" + \
+                   ".ןומיס לגעמו טפשמ עיפוי הנומתל תחתמ .םיטקייבוא רפסמ םימקוממ הבו הנומת יארת קדבמב\n" + \
+                   ".רחא טקייבוא ןוויכל הנופו ,הנומתבש םיטקייבואה דחא םוקמב תדמוע תאש ןיימדל ישבתת תא\n" + \
+                   ".תראותמה הביטקפסרפהמ ישילש טקייבוא אצמנ וב ןוויכה תא ףקשמש וק רייצל היהת ךלש המישמה\n" + \
+                   ",שדח טקייבוא ןוויכל הנופו הנומתב רחא טקייבוא םוקמב תדמוע תאש ןיימדל ישקבתת בלש לכב\n" + \
+                   ".ךיילא סחיב והשלכ ישילש טקייבוא לש םוקימה תא ףקשמש וק רייצל ןכמ רחאלו\n\n" + \
+                   ".הנומתה תיתחתבש ןומיסה לגעמ יבג לע רייצל ךיילע וקה תא\n" + \
+                   ",(ןושארה ץפחה םוקמב) בלש ותואב ךלש ןיימודמה םוקימה תא תפקשמ לגעמה זכרמבש הדוקנה\n" + \
+                   ".(הנופ תא וילא ינשה ץפחה לש ןוויכה) ךלש תניימודמה טבמה תדוקנ תא ףקשמ יכנאה ץחהו\n" + \
+                   ".וללה תודוקנה יתשל סחיב ישילשה ץפחה לש ןוויכה תא גציימש וק רייצל הכירצ תא\n\n" + \
+                   ".דומעה תיתחתבש אמגודל בלשב יטיבה\n" + \
+                   ".ץעה ןוויכל הנופו ןומעפה םוקמב תדמוע תאש ןיימדל תשקבתמ תא וז אמגודב\n" + \
+                   ".וקווקמ וקכ אמגודב עיפומ רייצל ךירצ היהש וקה .ףותה לש ןוויכה לא עיבצמש וק רייצל התייה אמגודב המישמה\n" + \
+                   "?וקווקמה וקה עיבצמ וילא ןוויכב היה ףותה ,ץעה ןוויכל הנופו ןומעפה םוקמב תדמוע תייה םאש ןיימדל הלוכי תא םאה\nֿ\n" + \
+                   ".המישמה יבגל תולאש ךל שי םא ןחובה תא ילאש\n\n" + \
+                   ".ךשמהל חוורה שקמ לע יצחל\n" 
 
 
 ##################
@@ -115,7 +118,9 @@ def main():
 def create_instruction_window():
     ins_fig = plt.figure("Instructions", figsize = (8, 7))
     ins_ax = ins_fig.add_subplot(1, 1, 1)
-    ins_ax.text(0.01, 0, INSTRUCTION_TEXT, verticalalignment='center', fontsize=12.5)
+    #ins_ax.text(0.01, 0, INSTRUCTION_TEXT, verticalalignment='center', fontsize=12.5)
+    ins_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=12.5, weight='bold')
+    ins_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=12.5)
     plt.xticks([])
     plt.yticks([])
     plt.ylim([-1.0, 1.0])
