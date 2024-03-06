@@ -19,6 +19,28 @@ TASK_TEXT_1 = "Imagine you are standing at the"
 TASK_TEXT_2 = "and facing the"
 TASK_TEXT_3 = "Point to the"
 
+TASK_ITEMS = [
+    ("bell", "tree", "drum", 306),
+    ("drum", "traffic light", "wheel", 57),
+    ("bell", "tree", "barrel", 326),
+    ("trash can", "drum", "bell", 49),
+    ("wheel", "barrel", "traffic light", 143),
+    ("drum", "tree", "wheel", 249),
+    ("traffic light", "drum", "trash can", 93),
+    ("drum", "bell", "wheel", 165),
+    ("traffic light", "tree", "barrel", 318),
+    ("traffic light", "bell", "wheel", 250),
+    ("barrel", "trash can", "bell", 333),
+    ("trash can", "bell", "traffic light", 268),
+    ("wheel", "traffic light", "tree", 266),
+    ("barrel", "drum", "wheel", 41),
+    ("tree", "bell", "trash can", 25),
+    ("drum", "trash can", "barrel", 151)
+]
+
+
+############## OLD task items
+'''
 TASK_ITEMS = [ ("flower", "tree", "cat", 301), # example
                ("car", "traffic light", "stop sign", 123),
                ("cat", "tree", "car", 237),
@@ -33,6 +55,10 @@ TASK_ITEMS = [ ("flower", "tree", "cat", 301), # example
                ("tree", "flower", "house", 26),
                ("cat", "house", "traffic light", 150)
              ]
+
+'''
+
+##################
 
 TIME_IN_SECONDS = 5 * 60
 
