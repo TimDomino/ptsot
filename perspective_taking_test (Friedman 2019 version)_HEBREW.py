@@ -124,7 +124,7 @@ def main():
     result_file = open('results-' + str(subject_id) + '.txt', 'w+')
 
     create_test_window(subject_id)
-    create_instruction_window()
+
 
     builtins.result_file = result_file
     builtins.errors = []
@@ -282,8 +282,12 @@ def on_key_press(EVENT):
                 builtins.example_line_3.set_visible(False)
         builtins.task_id += 1
 
+        if builtins.task_id == 1: # show instructions for the next 3 example items
+            create_instruction_window()
+
         if builtins.task_id < len(TASK_ITEMS): # move on to the next task
             load_task(builtins.task_id)
+
         else: # no more tasks, terminate the test
             avg_error = np.mean(builtins.errors)
             builtins.result_file.write('Average Error: ' + str(round(avg_error, 4)))
