@@ -10,7 +10,6 @@ import numpy as np
 import builtins
 import math
 import sys
-import time
 
 ##################
 # task specifications
@@ -62,8 +61,7 @@ TASK_ITEMS = [ ("flower", "tree", "cat", 301), # example
 
 ##################
 
-TIME_IN_SECONDS = 5 * 60
-
+FIRST_INTERACTIVE_EXAMPLE_TEXT = "This is an example of the test you will be taking. In this example, you are asked to"
 INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspectives\n" + \
                    "or orientations in space. On each of the following screens you will\n" + \
                    "see a picture of an array of objects and an \"arrow circle\" with a question\n" + \
@@ -88,6 +86,8 @@ INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspect
                    "too much time on any one question.\n\n" + \
                    "You will have 5 minutes for this test. Use SPACE in the other window to\n" + \
                    "confirm your selections."
+
+
 
 
 ##################
@@ -130,7 +130,6 @@ def create_test_window(SUBJECT_ID):
     picture = mpimg.imread('Data/2019v_object_array.png')
     plt.xticks([])
     plt.yticks([])
-    pic_ax.set_title("Remaining Time: " + str(TIME_IN_SECONDS))
     pic_ax.imshow(picture)
 
     # user input subplot
@@ -163,7 +162,6 @@ def create_test_window(SUBJECT_ID):
     text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=10, horizontalalignment='center')
     text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=10, horizontalalignment='center')
     text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=10, horizontalalignment='center')
-
     plt.xlim(-1.5, 1.5)
     plt.xticks([])
     plt.ylim(-1.5, 1.5)
@@ -194,8 +192,7 @@ def load_task(INDEX):
 
     instruction_text = task_id_as_text + ' ' + TASK_TEXT_1 + ' $\mathtt{' + located_at + '}$ ' + TASK_TEXT_2 + \
                        ' $\mathtt{' + facing_to + '}$. ' + TASK_TEXT_3 + ' $\mathtt{' + pointing_to + '}$.'
-    builtins.text_instruction.set_text(instruction_text)
-    
+    builtins.text_instruction.set_text(instruction_text)    
     if INDEX == 0: # example case
         builtins.answer_line.set_data([0.0, -0.809], [0.0, 0.587])
         text_example.set_text('drum')
@@ -203,11 +200,9 @@ def load_task(INDEX):
         builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
 
-    if INDEX == 4: # first real task, start timer
-        timer = builtins.fig.canvas.new_timer(interval=1000)
-        timer.add_callback(update_time)
-        builtins.start_time = time.time()
-        timer.start()
+    if INDEX == 4: # first real task
+        builtins.picture_ax.set_title(FIRST_INTERACTIVE_EXAMPLE_TEXT)
+
     
     builtins.text_bottom.set_text(item_tuple[0])
     builtins.text_top.set_text(item_tuple[1])
@@ -264,11 +259,6 @@ def on_key_press(EVENT):
             print('The test has terminated successfully. Results saved to file ' + builtins.result_file.name + '.')
             sys.exit(0)
 
-
-def update_time():
-    elapsed = max(TIME_IN_SECONDS - round(time.time()-builtins.start_time), 0)
-    builtins.picture_ax.set_title("Remaining Time: " + str(elapsed))
-    builtins.fig.canvas.draw()
 
 
 ##################
