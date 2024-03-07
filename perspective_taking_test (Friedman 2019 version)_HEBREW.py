@@ -39,30 +39,31 @@ TASK_Example_3 = ".תחא המישמ לע ןמז ידמ רתוי יזבזבת ל
 TASK_Example_4 = ".ימייסתשכ חוורה שקמ לע יצחל\n"
 
 
-TASK_TEXT_1 = "םוקמב תדמוע תאש י ניימד"
+TASK_TEXT_1 = "םוקמב תדמוע תאש יניימד"
 TASK_TEXT_2 = "ןוויכל הנופו"
 TASK_TEXT_3 = "ןוויכל יעיבצה"
 
 
 # First 4 are example items, the next 12 are the actual test items
 TASK_ITEMS = [
-    ("bell", "tree", "drum", 306),
-    ("drum", "traffic light", "wheel", 57), 
-    ("bell", "tree", "barrel", 326),
-    ("trash can", "drum", "bell", 49),
-    ("wheel", "barrel", "traffic light", 143),
-    ("drum", "tree", "wheel", 249),
-    ("traffic light", "drum", "trash can", 93),
-    ("drum", "bell", "wheel", 165),
-    ("traffic light", "tree", "barrel", 318),
-    ("traffic light", "bell", "wheel", 250),
-    ("barrel", "trash can", "bell", 333),
-    ("trash can", "bell", "traffic light", 268),
-    ("wheel", "traffic light", "tree", 266),
-    ("barrel", "drum", "wheel", 41),
-    ("tree", "bell", "trash can", 25),
-    ("drum", "trash can", "barrel", 151)
+    ("ןומעפה", "ץעה", "ףותה", 306),
+    ("ףותה", "רוזמרה", "לגלגה", 57),
+    ("ןומעפה", "ץעה", "תיבחה", 326),
+    ("חפה", "ףותה", "ןומעפה", 49),
+    ("לגלגה", "תיבחה", "רוזמרה", 143),
+    ("ףותה", "ץעה", "לגלגה", 249),
+    ("רוזמרה", "ףותה", "חפה", 93),
+    ("ףותה", "ןומעפה", "לגלגה", 165),
+    ("רוזמרה", "ץעה", "תיבחה", 318),
+    ("רוזמרה", "ןומעפה", "לגלגה", 250),
+    ("תיבחה", "חפה", "ןומעפה", 333),
+    ("חפה", "ןומעפה", "רוזמרה", 268),
+    ("לגלגה", "רוזמרה", "ץעה", 266),
+    ("תיבחה", "ףותה", "לגלגה", 41),
+    ("ץעה", "ןומעפה", "חפה", 25),
+    ("ףותה", "חפה", "תיבחה", 151)
 ]
+
 
 
 ############## OLD task items
