@@ -66,6 +66,9 @@ FIRST_INTERACTIVE_EXAMPLE_TEXT = "Here is a sample item that has the correct ans
       "Drag the line around the arrow circle using the mouse to the desired response.\n" + \
       "Match your answer to the correct answer shown. Can you satisfy yourself that this answer is the correct answer\n\n"+ \
       "Please press SPACE when finished"
+
+ENTER_INSTRUCTION_TEXT = "Please press SPACE to enter your response."
+
 INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspectives\n" + \
                    "or orientations in space. On each of the following screens you will\n" + \
                    "see a picture of an array of objects and an \"arrow circle\" with a question\n" + \
@@ -167,7 +170,7 @@ def create_test_window(SUBJECT_ID):
     text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=10, horizontalalignment='center')
     text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=10, horizontalalignment='center')
     text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=10, horizontalalignment='center')
-    example_task_instruction = pic_ax.text(300, 550, 'FIRST', fontsize=11, horizontalalignment='center')
+    example_task_instruction = pic_ax.text(300, 550, ' ', fontsize=11, horizontalalignment='center')
     input_ax.set_xlim(-1.5, 1.5)
     input_ax.set_ylim(-1.5, 1.5)
     input_ax.set_xticks([])
@@ -207,8 +210,10 @@ def load_task(INDEX):
         builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
 
-    if INDEX == 1: # first real task
+    if INDEX == 0: # first example task
         builtins.example_task_instruction.set_text(FIRST_INTERACTIVE_EXAMPLE_TEXT)
+    if INDEX > 0:
+        builtins.example_task_instruction.set_text(ENTER_INSTRUCTION_TEXT)
 
     
     builtins.text_bottom.set_text(item_tuple[0])
