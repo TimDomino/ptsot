@@ -61,7 +61,11 @@ TASK_ITEMS = [ ("flower", "tree", "cat", 301), # example
 
 ##################
 
-FIRST_INTERACTIVE_EXAMPLE_TEXT = "This is an example of the test you will be taking. In this example, you are asked to"
+FIRST_INTERACTIVE_EXAMPLE_TEXT = "Here is a sample item that has the correct answer drawn in. Practice inputting your response using the mouse.\n"+ \
+      "To practice marking your answer, click on the arrow circle and a line will appear.\n" + \
+      "Drag the line around the arrow circle using the mouse to the desired response.\n" + \
+      "Match your answer to the correct answer shown. Can you satisfy yourself that this answer is the correct answer\n\n"+ \
+      "Please press SPACE when finished"
 INSTRUCTION_TEXT = "This is a test of your ability to imagine different perspectives\n" + \
                    "or orientations in space. On each of the following screens you will\n" + \
                    "see a picture of an array of objects and an \"arrow circle\" with a question\n" + \
@@ -128,13 +132,14 @@ def create_test_window(SUBJECT_ID):
     # object array subplot
     pic_ax = test_fig.add_subplot(1, 2, 1)
     picture = mpimg.imread('Data/2019v_object_array.png')
-    plt.xticks([])
-    plt.yticks([])
     pic_ax.imshow(picture)
+    pic_ax.set_xticks([])
+    pic_ax.set_yticks([])
 
     # user input subplot
     input_ax = test_fig.add_subplot(1, 2, 2)
     input_ax.axis('equal')
+   
 
     circle = patches.Circle((0, 0), 1.0, facecolor='none', edgecolor='black', linewidth=3)
     input_ax.add_patch(circle)
@@ -162,10 +167,11 @@ def create_test_window(SUBJECT_ID):
     text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=10, horizontalalignment='center')
     text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=10, horizontalalignment='center')
     text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=10, horizontalalignment='center')
-    plt.xlim(-1.5, 1.5)
-    plt.xticks([])
-    plt.ylim(-1.5, 1.5)
-    plt.yticks([])
+    example_task_instruction = pic_ax.text(300, 550, 'FIRST', fontsize=11, horizontalalignment='center')
+    input_ax.set_xlim(-1.5, 1.5)
+    input_ax.set_ylim(-1.5, 1.5)
+    input_ax.set_xticks([])
+    input_ax.set_yticks([])
     test_fig.tight_layout()
 
     # event handling
@@ -179,6 +185,7 @@ def create_test_window(SUBJECT_ID):
     builtins.text_top = text_top
     builtins.text_example = text_example
     builtins.text_instruction = text_instruction
+    builtins.example_task_instruction = example_task_instruction
     test_fig.canvas.mpl_connect('button_press_event', on_click)
     test_fig.canvas.mpl_connect('key_press_event', on_key_press)
 
@@ -200,8 +207,8 @@ def load_task(INDEX):
         builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
 
-    if INDEX == 4: # first real task
-        builtins.picture_ax.set_title(FIRST_INTERACTIVE_EXAMPLE_TEXT)
+    if INDEX == 1: # first real task
+        builtins.example_task_instruction.set_text(FIRST_INTERACTIVE_EXAMPLE_TEXT)
 
     
     builtins.text_bottom.set_text(item_tuple[0])
