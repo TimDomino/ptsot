@@ -138,6 +138,8 @@ def main():
 ##################
 # plot creator functions
 ##################
+
+##################1
 def create_instruction_window():
     ins_fig = plt.figure("Instructions", figsize = (8, 7))
     ins_ax = ins_fig.add_subplot(1, 1, 1)
@@ -213,17 +215,36 @@ def create_test_window(SUBJECT_ID):
     test_fig.canvas.mpl_connect('button_press_event', on_click)
     test_fig.canvas.mpl_connect('key_press_event', on_key_press)
 
+text_objects = []
 
 def load_task(INDEX):
-    task_id_as_text = str(INDEX) + '.'
+    task_id_as_text = str(INDEX)
     item_tuple = TASK_ITEMS[INDEX]
     located_at = item_tuple[0].replace(' ', '\; ')
     facing_to = item_tuple[1].replace(' ', '\; ')
     pointing_to = item_tuple[2].replace(' ', '\; ')
 
-    instruction_text = task_id_as_text + ' ' + TASK_TEXT_1 + ' $\mathtt{' + located_at + '}$ ' + TASK_TEXT_2 + \
-                       ' $\mathtt{' + facing_to + '}$. ' + TASK_TEXT_3 + ' $\mathtt{' + pointing_to + '}$.'
-    builtins.text_instruction.set_text(instruction_text)    
+    # instruction_text = task_id_as_text + ' ' + TASK_TEXT_3 + ' ' + located_at + ' ' + TASK_TEXT_2 + \
+    #                    ' ' + facing_to + '. ' + TASK_TEXT_1 + ' ' + pointing_to + '.'
+    instruction_text =  pointing_to + ' '  + TASK_TEXT_3  + ' ' + facing_to +  ' ' + TASK_TEXT_2 + \
+                       ' ' + located_at + ' ' + TASK_TEXT_1 + ' .' + task_id_as_text
+    # Clear previous instructions
+    builtins.text_instruction.set_text('')
+    #    Clear previous instructions
+    for text in text_objects:
+        text.remove()
+    text_objects.clear()
+     # Set new instructions
+    x, y = builtins.text_instruction.get_position()
+
+    text_objects.append(plt.text(x - 1.5, y, ' .' + pointing_to + ' ', color='black', weight='bold', ha = 'right'))
+    text_objects.append(plt.text(x - 0.75 , y, TASK_TEXT_3  + ' ', color='black', ha = 'right'))
+    text_objects.append(plt.text(x - 0.25, y, ' .' + facing_to + ' ', color='black', weight='bold', ha = 'right'))
+    text_objects.append(plt.text(x + 0.4, y, TASK_TEXT_2 + ' ', color='black', ha = 'right'))
+    text_objects.append(plt.text(x + 0.9, y, located_at + ' ', color='black', weight='bold', ha = 'right'))
+    text_objects.append(plt.text(x + 2.5, y, TASK_TEXT_1 + ' .' + task_id_as_text, color='black', ha = 'right'))
+
+
     if INDEX == 0: # example case
         builtins.answer_line.set_data([0.0, -0.809], [0.0, 0.587])
         text_example.set_text('drum')
