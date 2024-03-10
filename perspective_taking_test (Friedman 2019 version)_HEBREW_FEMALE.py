@@ -145,11 +145,11 @@ def main():
 
 ##################1
 def create_instruction_window():
-    ins_fig = plt.figure("Instructions", figsize = (8, 7))
+    ins_fig = plt.figure("Instructions", figsize = (25, 14))
     ins_ax = ins_fig.add_subplot(1, 1, 1)
     #ins_ax.text(0.01, 0, INSTRUCTION_TEXT, verticalalignment='center', fontsize=12.5)
-    ins_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=12.5, weight='bold')
-    ins_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=12.5)
+    ins_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=25, weight='bold')
+    ins_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=35)
     plt.xticks([])
     plt.yticks([])
     plt.ylim([-1.0, 1.0])
@@ -157,7 +157,7 @@ def create_instruction_window():
 
 
 def create_test_window(SUBJECT_ID):
-    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (7.5, 7.5))
+    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (25, 14))
     plt.rcParams['text.usetex'] = False
 
     # object array subplot
