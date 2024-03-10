@@ -237,7 +237,7 @@ def load_task(INDEX):
 
     if INDEX == 0: # example case
         builtins.answer_line.set_data([0.0, -0.809], [0.0, 0.587])
-        text_example.set_text('drum')
+        text_example.set_text('ףות')
     else:
         builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
