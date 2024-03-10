@@ -158,6 +158,7 @@ def create_instruction_window():
 
 def create_test_window(SUBJECT_ID):
     test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (7.5, 7.5))
+    plt.rcParams['text.usetex'] = False
 
     # object array subplot
     pic_ax = test_fig.add_subplot(1, 2, 1)
@@ -196,7 +197,7 @@ def create_test_window(SUBJECT_ID):
     text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=10, horizontalalignment='center')
     text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=10, horizontalalignment='center')
     text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=10, horizontalalignment='center')
-    text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=10, horizontalalignment='center')
+    text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=14, horizontalalignment='center')
     example_task_instruction = pic_ax.text(300, 550, ' ', fontsize=11, horizontalalignment='center')
     input_ax.set_xlim(-1.5, 1.5)
     input_ax.set_ylim(-1.5, 1.5)
@@ -219,7 +220,6 @@ def create_test_window(SUBJECT_ID):
     test_fig.canvas.mpl_connect('button_press_event', on_click)
     test_fig.canvas.mpl_connect('key_press_event', on_key_press)
 
-text_objects = []
 
 def load_task(INDEX):
     task_id_as_text = str(INDEX)
@@ -228,26 +228,12 @@ def load_task(INDEX):
     facing_to = item_tuple[1].replace(' ', '\; ')
     pointing_to = item_tuple[2].replace(' ', '\; ')
 
-    # instruction_text = task_id_as_text + ' ' + TASK_TEXT_3 + ' ' + located_at + ' ' + TASK_TEXT_2 + \
-    #                    ' ' + facing_to + '. ' + TASK_TEXT_1 + ' ' + pointing_to + '.'
-    instruction_text =  pointing_to + ' '  + TASK_TEXT_3  + ' ' + facing_to +  ' ' + TASK_TEXT_2 + \
-                       ' ' + located_at + ' ' + TASK_TEXT_1 + ' .' + task_id_as_text
+
+    instruction_text =  r'$\bf{' + pointing_to + '}$ '  + TASK_TEXT_3  + ' ' + r'$\bf{' + facing_to +  '}$ ' + TASK_TEXT_2 + \
+                   ' ' + r'$\bf{' + located_at + '}$ ' + TASK_TEXT_1 + ' .' + task_id_as_text
+                   
     # Clear previous instructions
-    builtins.text_instruction.set_text('')
-    #    Clear previous instructions
-    for text in text_objects:
-        text.remove()
-    text_objects.clear()
-     # Set new instructions
-    x, y = builtins.text_instruction.get_position()
-
-    text_objects.append(plt.text(x - 1.5, y, ' .' + pointing_to + ' ', color='black', weight='bold', ha = 'right'))
-    text_objects.append(plt.text(x - 0.75 , y, TASK_TEXT_3  + ' ', color='black', ha = 'right'))
-    text_objects.append(plt.text(x - 0.25, y, ' .' + facing_to + ' ', color='black', weight='bold', ha = 'right'))
-    text_objects.append(plt.text(x + 0.4, y, TASK_TEXT_2 + ' ', color='black', ha = 'right'))
-    text_objects.append(plt.text(x + 0.9, y, located_at + ' ', color='black', weight='bold', ha = 'right'))
-    text_objects.append(plt.text(x + 2.5, y, TASK_TEXT_1 + ' .' + task_id_as_text, color='black', ha = 'right'))
-
+    builtins.text_instruction.set_text(instruction_text)
 
     if INDEX == 0: # example case
         builtins.answer_line.set_data([0.0, -0.809], [0.0, 0.587])
