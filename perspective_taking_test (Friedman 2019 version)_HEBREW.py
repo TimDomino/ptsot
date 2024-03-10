@@ -17,7 +17,7 @@ import sys
 # this is the text to be shown on top of the practice first example
 # (the one that was presented initially as a fixed image)
 TASK_Example_0 = ".םאתהב עיפוי וקו ןומיסה לגעמ ףקיה לע יצחל ,הבושתה ןומיס לע ןמאתהל ידכ .רבכעה תרזעב ךלש הבושתה ןומיס לע ינמאתה .הנוכנה הבושתה תנמוסמ וב המגודל ליגרת ךינפל\n" + \
-                 ".תנמוסמה הנוכנה הבושתל ךלש הבושתה תא ימיאתה .היוצרה הבושתל רבכעה תרזעב ןומיסה לגעמ ךרואל וקה תא תא יזיזה\n" + \
+                 ".תנמוסמה הנוכנה הבושתל ךלש הבושתה תא ימיאתה .היוצרה הבושתל רבכעה תרזעב ןומיסה לגעמ ךרואל וקה תא תא יזיזה\n\n" + \
                  ".ימייסתשכ חוורה שקמ לע יצחל\n"
 
 # this is the text to be shown alone, before the three practice examples
@@ -38,10 +38,14 @@ TASK_Example_3 = ".תחא המישמ לע ןמז ידמ רתוי יזבזבת ל
 # below the TASK_TEXT_1, TASK_TEXT_2, and TASK_TEXT_3 combination
 TASK_Example_4 = ".ימייסתשכ חוורה שקמ לע יצחל\n"
 
+# this is the text to be shown at the end of the test 
+TASK_Example_5 = ".קדובל יארק אנא , המייתסה המישמה\n"
+
 
 TASK_TEXT_1 = "םוקמב תדמוע תאש יניימד"
 TASK_TEXT_2 = "ןוויכל הנופו"
 TASK_TEXT_3 = "ןוויכל יעיבצה"
+
 
 
 # First 4 are example items, the next 12 are the actual test items
