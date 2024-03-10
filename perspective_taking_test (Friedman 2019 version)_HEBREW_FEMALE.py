@@ -5,6 +5,7 @@ import matplotlib.image as mpimg
 import matplotlib.lines as lines
 import matplotlib.patches as patches
 import numpy as np
+import textwrap
 
 # import python libraries
 import builtins
@@ -16,30 +17,31 @@ import sys
 ##################
 # this is the text to be shown on top of the practice first example
 # (the one that was presented initially as a fixed image)
-TASK_Example_0 = ".םאתהב עיפוי וקו ןומיסה לגעמ ףקיה לע יצחל ,הבושתה ןומיס לע ןמאתהל ידכ .רבכעה תרזעב ךלש הבושתה ןומיס לע ינמאתה .הנוכנה הבושתה תנמוסמ וב המגודל ליגרת ךינפל\n" + \
+TASK_EXAMPLE_0 = ".םאתהב עיפוי וקו ןומיסה לגעמ ףקיה לע יצחל ,הבושתה ןומיס לע ןמאתהל ידכ .רבכעה תרזעב ךלש הבושתה ןומיס לע ינמאתה .הנוכנה הבושתה תנמוסמ וב המגודל ליגרת ךינפל\n" + \
                  ".תנמוסמה הנוכנה הבושתל ךלש הבושתה תא ימיאתה .היוצרה הבושתל רבכעה תרזעב ןומיסה לגעמ ךרואל וקה תא תא יזיזה\n\n" + \
                  ".ימייסתשכ חוורה שקמ לע יצחל\n"
 
 # this is the text to be shown alone, before the three practice examples
-TASK_Example_1 = ".ךלש הבושתה תא ןמסל ידכ ןומיסה לגעמ לע וקה תא יזיזה אמגוד לכב .ןומיאל תואמגוד שולש ךינפל ועיפוי תעכ\n" +\
+TASK_EXAMPLE_1 = ".ךלש הבושתה תא ןמסל ידכ ןומיסה לגעמ לע וקה תא יזיזה אמגוד לכב .ןומיאל תואמגוד שולש ךינפל ועיפוי תעכ\n" +\
 ".םודא עבצב עיפות הנוכנה הבושתהו חוורה שקמ לע יצחל ןכמ רחאל\n\n" +\
 ".ךשמהל חוורה שקמ לע יצחל\n"
 
+
 # this is the text to be shown below each of the three practice examples lines 
 # below the TASK_TEXT_1, TASK_TEXT_2, and TASK_TEXT_3 combination
-TASK_Example_2 = ".ימייסתשכ חוורה שקמ לע יצחל\n"
+TASK_EXAMPLE_2 = ".ימייסתשכ חוורה שקמ לע יצחל\n"
 
 # this is the text to be shown alone, before the 12 test trials
-TASK_Example_3 = ".תחא המישמ לע ןמז ידמ רתוי יזבזבת לא לבא ,קיודמב תונעל יסנ .תומישמ 21 םילשהל תוקד 5 ךתושרל .קדבמה ליחתי תעכ\n\n" +\
+TASK_EXAMPLE_3 = ".תחא המישמ לע ןמז ידמ רתוי יזבזבת לא לבא ,קיודמב תונעל יסנ .תומישמ 21 םילשהל תוקד 5 ךתושרל .קדבמה ליחתי תעכ\n\n" +\
 ".וישכע ילאש קדבמה יבגל תונורחא תולאש ךל שי םא\n\n" +\
 ".ליחתהל הנכומ תאש קדובל יעידוה ,אל םא\n"
 
 # this is the text to be shown below each of the test trials 
 # below the TASK_TEXT_1, TASK_TEXT_2, and TASK_TEXT_3 combination
-TASK_Example_4 = ".ימייסתשכ חוורה שקמ לע יצחל\n"
+TASK_EXAMPLE_4 = ".ימייסתשכ חוורה שקמ לע יצחל\n"
 
 # this is the text to be shown at the end of the test 
-TASK_Example_5 = ".קדובל יארק אנא , המייתסה המישמה\n"
+TASK_EXAMPLE_5 = ".קדובל יארק אנא , המייתסה המישמה\n"
 
 
 TASK_TEXT_1 = "םוקמב תדמוע תאש יניימד"
@@ -130,10 +132,10 @@ def main():
 
     create_test_window(subject_id)
 
-
     builtins.result_file = result_file
     builtins.errors = []
     builtins.task_id = 0
+    
     load_task(builtins.task_id)
 
     plt.show()
@@ -157,7 +159,7 @@ def create_instruction_window():
 
 
 def create_test_window(SUBJECT_ID):
-    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (25, 14))
+    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (20, 14))
     plt.rcParams['text.usetex'] = False
 
     # object array subplot
@@ -194,11 +196,11 @@ def create_test_window(SUBJECT_ID):
     input_ax.add_line(example_line_3) # added example line
 
 
-    text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=10, horizontalalignment='center')
-    text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=10, horizontalalignment='center')
-    text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=10, horizontalalignment='center')
+    text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=14, horizontalalignment='center')
+    text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=14, horizontalalignment='center')
+    text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=14, horizontalalignment='center')
     text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=14, horizontalalignment='center')
-    example_task_instruction = pic_ax.text(300, 550, ' ', fontsize=11, horizontalalignment='center')
+    example_task_instruction = pic_ax.text(300, 480, ' ', fontsize=13, horizontalalignment='center')
     input_ax.set_xlim(-1.5, 1.5)
     input_ax.set_ylim(-1.5, 1.5)
     input_ax.set_xticks([])
@@ -232,10 +234,10 @@ def load_task(INDEX):
     instruction_text =  r'$\bf{' + pointing_to + '}$ '  + TASK_TEXT_3  + ' ' + r'$\bf{' + facing_to +  '}$ ' + TASK_TEXT_2 + \
                    ' ' + r'$\bf{' + located_at + '}$ ' + TASK_TEXT_1 + ' .' + task_id_as_text
                    
-    # Clear previous instructions
     builtins.text_instruction.set_text(instruction_text)
 
     if INDEX == 0: # example case
+        create_instruction_window() # show general instructions at the beginning
         builtins.answer_line.set_data([0.0, -0.809], [0.0, 0.587])
         text_example.set_text('ףות')
     else:
@@ -243,9 +245,9 @@ def load_task(INDEX):
         text_example.set_text('')
 
     if INDEX == 0: # first example task
-        builtins.example_task_instruction.set_text(FIRST_INTERACTIVE_EXAMPLE_TEXT)
+        builtins.example_task_instruction.set_text(TASK_EXAMPLE_0)
     if INDEX > 0:
-        builtins.example_task_instruction.set_text(ENTER_INSTRUCTION_TEXT)
+        builtins.example_task_instruction.set_text(TASK_EXAMPLE_3)
 
     
     builtins.text_bottom.set_text(item_tuple[0])
@@ -294,9 +296,11 @@ def on_key_press(EVENT):
                 builtins.example_line_3.set_visible(False)
         builtins.task_id += 1
 
-        if builtins.task_id == 1: # show instructions for the next 3 example items
-            create_instruction_window()
+        
 
+        
+        
+        
         if builtins.task_id < len(TASK_ITEMS): # move on to the next task
             load_task(builtins.task_id)
 
