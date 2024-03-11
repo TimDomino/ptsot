@@ -226,9 +226,9 @@ def create_test_window(SUBJECT_ID):
 def load_task(INDEX):
     task_id_as_text = str(INDEX)
     item_tuple = TASK_ITEMS[INDEX]
-    located_at = item_tuple[0].replace(' ', '\; ')
-    facing_to = item_tuple[1].replace(' ', '\; ')
-    pointing_to = item_tuple[2].replace(' ', '\; ')
+    located_at = item_tuple[0].replace(r' ', r'\; ')
+    facing_to = item_tuple[1].replace(r' ', r'\; ')
+    pointing_to = item_tuple[2].replace(r' ',r'\; ')
 
 
     instruction_text =  r'$\bf{' + pointing_to + '}$ '  + TASK_TEXT_3  + ' ' + r'$\bf{' + facing_to +  '}$ ' + TASK_TEXT_2 + \
