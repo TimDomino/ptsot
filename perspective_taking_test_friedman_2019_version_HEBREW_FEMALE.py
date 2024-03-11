@@ -5,6 +5,7 @@ import matplotlib.image as mpimg
 import matplotlib.lines as lines
 import matplotlib.patches as patches
 import numpy as np
+import matplotlib.backends.backend_tkagg
 import textwrap
 
 # import python libraries
