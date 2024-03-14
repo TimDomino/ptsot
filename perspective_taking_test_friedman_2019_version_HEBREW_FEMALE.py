@@ -134,7 +134,7 @@ dpi = 120 # set the dpi for the instructions window and the test window
 screen_width_in = screen_width / dpi  
 screen_height_in = screen_height / dpi
 print (f'screen width in inches: {screen_width_in}, screen height in inches: {screen_height_in}')
-fontsize_instruction = 25  # Set font size for the instructions window
+fontsize_instruction = 15  # Set font size for the instructions window
 fontsize_test = 14  # Set font size for the test window
 
 ##################
@@ -160,15 +160,27 @@ def main():
 
 ##################1
 def create_instruction_window():
+
+    # create figure
     ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
-    ins_ax = ins_fig.add_subplot(1, 1, 1)
-    #ins_ax.text(0.01, 0, INSTRUCTION_TEXT, verticalalignment='center', fontsize=12.5)
-    ins_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
-    ins_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
-    plt.box(False) # remove 'box' around the plot
-    plt.xticks([])
-    plt.yticks([])
-    plt.ylim([-1.0, 1.0])
+
+    # create subplots
+    txt_ax = ins_fig.add_subplot(2, 1, 1)
+    img_ax = ins_fig.add_subplot(2, 1, 2)
+    img_ax.imshow(mpimg.imread('Data/example_image_first_window.png'))
+    
+    # remove ticks and 'axis lines' from subplots
+    img_ax.axis('off')
+    img_ax.set_xticks([])
+    img_ax.set_yticks([])
+    txt_ax.axis('off')
+    txt_ax.set_xticks([])
+    txt_ax.set_yticks([])
+
+
+
+    txt_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
+    txt_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
     ins_fig.tight_layout()
     print(ins_fig.dpi)
 
@@ -176,19 +188,17 @@ def create_instruction_window():
 def create_test_window(SUBJECT_ID):
     test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in),dpi=dpi)
     plt.rcParams['text.usetex'] = False
-
     # object array subplot
     pic_ax = test_fig.add_subplot(1, 2, 1)
-    picture = mpimg.imread('Data/2019v_object_array.png')
-    pic_ax.imshow(picture)
+    pic_ax.imshow(mpimg.imread('Data/2019v_object_array.png'))
     pic_ax.set_xticks([])
     pic_ax.set_yticks([])
+    pic_ax.axis('off')
 
     # user input subplot
     input_ax = test_fig.add_subplot(1, 2, 2)
     input_ax.axis('equal')
    
-
     circle = patches.Circle((0, 0), 1.0, facecolor='none', edgecolor='black', linewidth=3)
     input_ax.add_patch(circle)
 
@@ -199,7 +209,7 @@ def create_test_window(SUBJECT_ID):
 
 
     # creating main line and example lines
-    answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='orange')
+    answer_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='black')
     example_line_1 = lines.Line2D((0, 0.838), (0, 0.544), visible=False, linewidth=3, color='red') # added example line 1 
     example_line_2 = lines.Line2D((0, -0.56), (0, 0.83), visible=False, linewidth=3, color='red') # added example line 2
     example_line_3 = lines.Line2D((0, 0.755), (0, 0.656), visible=False, linewidth=3, color='red') # added example line 3
