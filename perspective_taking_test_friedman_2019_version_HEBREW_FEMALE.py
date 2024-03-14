@@ -5,8 +5,9 @@ import matplotlib.image as mpimg
 import matplotlib.lines as lines
 import matplotlib.patches as patches
 import numpy as np
-import matplotlib.backends.backend_tkagg
-import textwrap
+
+# other imports
+import tkinter as tk
 
 # import python libraries
 import builtins
@@ -121,7 +122,19 @@ INSTRUCTION_TEXT = ".בחרמב תונוש טבמ תודוקנו םינוויכ 
                    ".ךשמהל חוורה שקמ לע יצחל\n" 
 
 
-
+###########
+# Some global variables for the figure size and the font size
+###########
+root = tk.Tk()
+# Get the screen size
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+dpi = 120 # set the dpi for the instructions window and the test window
+# Convert screen size from pixels to inches for matplotlib
+screen_width_in = screen_width / dpi  
+screen_height_in = screen_height / dpi
+fontsize_instruction = 0.2 * dpi  # This scales the fontsize for the instructions windows
+fontsize_test = 0.1 * dpi  # This scales the fontsize for the test window
 
 ##################
 # main function
@@ -130,13 +143,11 @@ def main():
     matplotlib.rcParams['toolbar'] = 'None'
     subject_id = input("Please insert your participant ID: ")
     result_file = open('results-' + str(subject_id) + '.txt', 'w+')
-
     create_test_window(subject_id)
 
     builtins.result_file = result_file
     builtins.errors = []
     builtins.task_id = 0
-    
     load_task(builtins.task_id)
 
     plt.show()
@@ -148,11 +159,12 @@ def main():
 
 ##################1
 def create_instruction_window():
-    ins_fig = plt.figure("Instructions", figsize = (25, 14))
+    ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
     ins_ax = ins_fig.add_subplot(1, 1, 1)
     #ins_ax.text(0.01, 0, INSTRUCTION_TEXT, verticalalignment='center', fontsize=12.5)
-    ins_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=25, weight='bold')
-    ins_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=35)
+    ins_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
+    ins_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
+    plt.box(False) # remove 'box' around the plot
     plt.xticks([])
     plt.yticks([])
     plt.ylim([-1.0, 1.0])
@@ -160,7 +172,7 @@ def create_instruction_window():
 
 
 def create_test_window(SUBJECT_ID):
-    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (20, 14))
+    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in),dpi=dpi)
     plt.rcParams['text.usetex'] = False
 
     # object array subplot
@@ -197,11 +209,11 @@ def create_test_window(SUBJECT_ID):
     input_ax.add_line(example_line_3) # added example line
 
 
-    text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=14, horizontalalignment='center')
-    text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=14, horizontalalignment='center')
-    text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=14, horizontalalignment='center')
-    text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=14, horizontalalignment='center')
-    example_task_instruction = pic_ax.text(300, 480, ' ', fontsize=13, horizontalalignment='center')
+    text_bottom = input_ax.text(0.0, -0.15, 'text_bottom', fontsize=fontsize_test, horizontalalignment='center')
+    text_top = input_ax.text(0.0, 1.15, 'text_top', fontsize=fontsize_test, horizontalalignment='center')
+    text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=fontsize_test, horizontalalignment='center')
+    text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=fontsize_test, horizontalalignment='center')
+    example_task_instruction = pic_ax.text(300, 480, ' ', fontsize=fontsize_test, horizontalalignment='center')
     input_ax.set_xlim(-1.5, 1.5)
     input_ax.set_ylim(-1.5, 1.5)
     input_ax.set_xticks([])
