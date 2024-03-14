@@ -133,8 +133,9 @@ dpi = 120 # set the dpi for the instructions window and the test window
 # Convert screen size from pixels to inches for matplotlib
 screen_width_in = screen_width / dpi  
 screen_height_in = screen_height / dpi
-fontsize_instruction = 0.2 * dpi  # This scales the fontsize for the instructions windows
-fontsize_test = 0.1 * dpi  # This scales the fontsize for the test window
+print (f'screen width in inches: {screen_width_in}, screen height in inches: {screen_height_in}')
+fontsize_instruction = 25  # Set font size for the instructions window
+fontsize_test = 14  # Set font size for the test window
 
 ##################
 # main function
@@ -159,7 +160,7 @@ def main():
 
 ##################1
 def create_instruction_window():
-    ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in))
+    ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
     ins_ax = ins_fig.add_subplot(1, 1, 1)
     #ins_ax.text(0.01, 0, INSTRUCTION_TEXT, verticalalignment='center', fontsize=12.5)
     ins_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
@@ -169,10 +170,11 @@ def create_instruction_window():
     plt.yticks([])
     plt.ylim([-1.0, 1.0])
     ins_fig.tight_layout()
+    print(ins_fig.dpi)
 
 
 def create_test_window(SUBJECT_ID):
-    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in))
+    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in),dpi=dpi)
     plt.rcParams['text.usetex'] = False
 
     # object array subplot
