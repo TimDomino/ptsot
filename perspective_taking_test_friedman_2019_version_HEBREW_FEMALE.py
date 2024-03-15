@@ -138,6 +138,13 @@ print (f'screen width in inches: {screen_width_in}, screen height in inches: {sc
 fontsize_instruction = 15  # Set font size for the instructions window
 fontsize_test = 14  # Set font size for the test window
 
+##########
+# global varibles for time
+##########
+start_time = 0
+
+
+
 ##################
 # main function
 ##################
@@ -183,7 +190,6 @@ def create_first_instruction_window():
     txt_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
     txt_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
     ins_fig.tight_layout()
-    print(ins_fig.dpi)
 
 def create_second_instruction_window():
 
@@ -204,7 +210,7 @@ def create_second_instruction_window():
     txt_ax.text(0.99, 0.9, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
     txt_ax.text(0.99, 0.8, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
     ins_fig.tight_layout()
-    print(ins_fig.dpi)
+    ins_fig.canvas.mpl_connect('close_event', on_close)
 
 
 
@@ -293,11 +299,12 @@ def load_task(INDEX):
         text_example.set_text('')
 
     if INDEX == 0: # first example task
-        builtins.example_task_instruction.set_text(TASK_EXAMPLE_0)
+        builtins.example_task_instruction.set_text(TASK_EXAMPLE_1)
     if INDEX > 0:
-        builtins.example_task_instruction.set_text(TASK_EXAMPLE_3)
+        builtins.example_task_instruction.set_text(TASK_EXAMPLE_2)
     if INDEX == 3:
         create_second_instruction_window() # show general instructions at the beginning
+
 
     
     builtins.text_bottom.set_text(item_tuple[0])
@@ -361,6 +368,10 @@ def on_key_press(EVENT):
             print('The test has terminated successfully. Results saved to file ' + builtins.result_file.name + '.')
             sys.exit(0)
 
+
+
+def on_close(EVENT):
+    start_time = time.time()
 
 
 ##################
