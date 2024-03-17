@@ -160,11 +160,6 @@ def main():
     builtins.result_file = result_file
     builtins.errors = []
     builtins.task_id = 0
-    # minimize the test figure when the first test task is shown
-    # to allow the participant to read the instructions
-    if builtins.task_id == 4:
-        builtins.fig.canvas.get_tk_widget().master.iconify()
-
     load_task(builtins.task_id)
     
     plt.show()
