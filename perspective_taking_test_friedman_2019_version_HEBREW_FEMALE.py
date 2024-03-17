@@ -127,12 +127,12 @@ INSTRUCTION_TEXT = ".בחרמב תונוש טבמ תודוקנו םינוויכ 
 ###########
 # Some global variables for the figure size and the font size
 ###########
-root = tk.Tk()
-root.withdraw()  # Hide the root window
-
-# Get the screen size
+root = tk.Tk() # open a tkinter window to get the screen size
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
+root.withdraw()  # Hide the tkinter window
+
+
 dpi = 120 # set the dpi for the instructions window and the test window
 # Convert screen size from pixels to inches for matplotlib
 screen_width_in = screen_width / dpi  
@@ -145,6 +145,9 @@ fontsize_test = 14  # Set font size for the test window
 # global varibles for time
 ##########
 start_time = 0
+timer = None
+elapsed_time = 0
+
 
 
 
@@ -197,23 +200,31 @@ def create_second_instruction_window():
 
     # create figure
     ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
-
     # create subplots
     txt_ax = ins_fig.add_subplot(1, 1, 1)
-    
-    
     # remove ticks and 'axis lines' from plot
     txt_ax.axis('off')
     txt_ax.set_xticks([])
     txt_ax.set_yticks([])
-
-
 
     txt_ax.text(0.99, 0.9, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
     txt_ax.text(0.99, 0.8, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
     ins_fig.tight_layout()
     ins_fig.canvas.mpl_connect('close_event', on_close)
 
+def create_finsihed_window():
+    # create figure
+    ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
+    # create subplots
+    txt_ax = ins_fig.add_subplot(1, 1, 1)
+    # remove ticks and 'axis lines' from plot
+    txt_ax.axis('off')
+    txt_ax.set_xticks([])
+    txt_ax.set_yticks([])
+
+    txt_ax.text(0.99, 0.9, TASK_EXAMPLE_5, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
+    txt_ax.text(0.99, 0.8, TASK_EXAMPLE_5, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
+    ins_fig.tight_layout()
 
 
 def create_test_window(SUBJECT_ID):
@@ -306,7 +317,7 @@ def load_task(INDEX):
         builtins.example_task_instruction.set_text(TASK_EXAMPLE_2)
     if INDEX == 3:
         create_second_instruction_window() # show general instructions at the beginning
-    if INDEX == 4: # minimize the test figure when the first test task is shown
+    if INDEX == 4: # minimize the test figure when the first test (real) task is shown
         builtins.fig.canvas.get_tk_widget().master.iconify()
  
 
@@ -358,10 +369,6 @@ def on_key_press(EVENT):
         builtins.task_id += 1
 
         
-
-        
-        
-        
         if builtins.task_id < len(TASK_ITEMS): # move on to the next task
             load_task(builtins.task_id)
 
@@ -375,9 +382,24 @@ def on_key_press(EVENT):
 
 
 def on_close(EVENT):
-    # if the second instructions window is closed, maximize the test window
+    global start_time
+    # When the second instructions window is closed, maximize the test window and start the 5 minute timer
     builtins.fig.canvas.get_tk_widget().master.deiconify()
-    start_time = time.time() # start the timer
+    timer = builtins.fig.canvas.new_timer(interval=1000) # create a timer that fires every 1 second
+    timer.add_callback(update_time) # add a callback to the timer
+    start_time = time.time() # set the start time
+    timer.start() # start the timer
+
+
+
+def update_time():
+    global start_time, elapsed_time
+    elapsed_time = time.time() - start_time
+    if elapsed_time > 10:
+        create_finsihed_window()
+    print(f'Time elapsed: {elapsed_time} seconds')
+   
+
 
 
 ##################
