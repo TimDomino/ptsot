@@ -1,5 +1,6 @@
 # import matplotlib features
 import matplotlib
+matplotlib.use('TkAgg') 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import matplotlib.lines as lines
@@ -127,6 +128,8 @@ INSTRUCTION_TEXT = ".בחרמב תונוש טבמ תודוקנו םינוויכ 
 # Some global variables for the figure size and the font size
 ###########
 root = tk.Tk()
+root.withdraw()  # Hide the root window
+
 # Get the screen size
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -157,10 +160,14 @@ def main():
     builtins.result_file = result_file
     builtins.errors = []
     builtins.task_id = 0
+    # minimize the test figure when the first test task is shown
+    # to allow the participant to read the instructions
+    if builtins.task_id == 4:
+        builtins.fig.canvas.get_tk_widget().master.iconify()
+
     load_task(builtins.task_id)
-
+    
     plt.show()
-
 
 ##################
 # plot creator functions
@@ -304,7 +311,9 @@ def load_task(INDEX):
         builtins.example_task_instruction.set_text(TASK_EXAMPLE_2)
     if INDEX == 3:
         create_second_instruction_window() # show general instructions at the beginning
-
+    if INDEX == 4: # minimize the test figure when the first test task is shown
+        builtins.fig.canvas.get_tk_widget().master.iconify()
+ 
 
     
     builtins.text_bottom.set_text(item_tuple[0])
@@ -371,7 +380,9 @@ def on_key_press(EVENT):
 
 
 def on_close(EVENT):
-    start_time = time.time()
+    # if the second instructions window is closed, maximize the test window
+    builtins.fig.canvas.get_tk_widget().master.deiconify()
+    start_time = time.time() # start the timer
 
 
 ##################
