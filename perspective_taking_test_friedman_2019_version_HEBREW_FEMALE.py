@@ -212,21 +212,6 @@ def create_second_instruction_window():
     ins_fig.tight_layout()
     ins_fig.canvas.mpl_connect('close_event', on_close)
 
-def create_finsihed_window():
-    # create figure
-    ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
-    # create subplots
-    txt_ax = ins_fig.add_subplot(1, 1, 1)
-    # remove ticks and 'axis lines' from plot
-    txt_ax.axis('off')
-    txt_ax.set_xticks([])
-    txt_ax.set_yticks([])
-
-    txt_ax.text(0.99, 0.9, TASK_EXAMPLE_5, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
-    txt_ax.text(0.99, 0.8, TASK_EXAMPLE_5, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
-    ins_fig.tight_layout()
-
-
 def create_test_window(SUBJECT_ID):
     test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in),dpi=dpi)
     plt.rcParams['text.usetex'] = False
@@ -401,11 +386,7 @@ def update_time():
         builtins.result_file.write('Average Error: ' + str(round(avg_error, 4)))
         builtins.result_file.close()
         print('The test has terminated successfully. Results saved to file ' + builtins.result_file.name + '.')
-        sys.exit(0)
-
-        
-       
-          
+        sys.exit(0)    
     print(f'Time elapsed: {elapsed_time} seconds')
    
 
