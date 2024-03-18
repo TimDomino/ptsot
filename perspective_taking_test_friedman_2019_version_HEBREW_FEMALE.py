@@ -9,6 +9,7 @@ import numpy as np
 
 # other imports
 import tkinter as tk
+from tkinter import messagebox
 import time
 
 # import python libraries
@@ -45,8 +46,7 @@ TASK_EXAMPLE_3 = ".תחא המישמ לע ןמז ידמ רתוי יזבזבת ל
 TASK_EXAMPLE_4 = ".ימייסתשכ חוורה שקמ לע יצחל\n"
 
 # this is the text to be shown at the end of the test 
-TASK_EXAMPLE_5 = ".קדובל יארק אנא , המייתסה המישמה\n"
-
+END_TEXT = ".המשימה הסתיימה, אנא קראי לבודק\n" + "\n" * 9
 
 TASK_TEXT_1 = "םוקמב תדמוע תאש יניימד"
 TASK_TEXT_2 = "ןוויכל הנופו"
@@ -395,12 +395,23 @@ def on_close(EVENT):
 def update_time():
     global start_time, elapsed_time
     elapsed_time = time.time() - start_time
-    if elapsed_time > 10:
-        create_finsihed_window()
+    if elapsed_time > 10.0:
+        show_popup_message(END_TEXT)
+        avg_error = np.mean(builtins.errors)
+        builtins.result_file.write('Average Error: ' + str(round(avg_error, 4)))
+        builtins.result_file.close()
+        print('The test has terminated successfully. Results saved to file ' + builtins.result_file.name + '.')
+        sys.exit(0)
+
+        
+       
+          
     print(f'Time elapsed: {elapsed_time} seconds')
    
 
 
+def show_popup_message(message):
+    messagebox.showinfo("Message", message)
 
 ##################
 # math helpers
