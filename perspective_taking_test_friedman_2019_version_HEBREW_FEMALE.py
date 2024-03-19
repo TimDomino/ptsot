@@ -133,12 +133,11 @@ INSTRUCTION_TEXT = ".בחרמב תונוש טבמ תודוקנו םינוויכ 
 
 
 ###########
-# Some global variables for the figure size and the font size
+# Some global variables for the tkinter and font and dpi settings
 ###########
 root = tk.Tk() # open a tkinter window to get the screen size
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
-
 root.withdraw()  # Hide the tkinter window
 
 
@@ -146,7 +145,6 @@ dpi = 100 # set the dpi for the instructions window and the test window
 # Convert screen size from pixels to inches for matplotlib
 screen_width_in = screen_width / dpi  
 screen_height_in = screen_height / dpi
-print (f'screen width in inches: {screen_width_in}, screen height in inches: {screen_height_in}')
 fontsize_instruction = 15  # Set font size for the instructions window
 fontsize_test = 13  # Set font size for the test window
 
@@ -164,8 +162,20 @@ elapsed_time = 0
 # main function
 ##################
 def main():
+    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in
+
     matplotlib.rcParams['toolbar'] = 'None'
     subject_id = input("Please insert your participant ID: ")
+    input_values = input("Enter dpi and font size for the instructions window and the test window separated by a space, press 'Enter' for default values(Example input- 100 13 15): ")
+    if input_values.strip() == "":
+        # if non given, use the default values
+        print("Using default values for dpi and font size (dpi=100, fontsize_instruction=15, fontsize_test=13)")
+    else:
+        dpi, fontsize_instruction, fontsize_test = map(int, input_values.split())
+        screen_width_in = screen_width / dpi  
+        screen_height_in = screen_height / dpi
+
+    print (f'screen width in inches: {screen_width_in}, screen height in inches: {screen_height_in}')
     result_file = open('results-' + str(subject_id) + '.txt', 'w+')
     create_test_window(subject_id)
 
