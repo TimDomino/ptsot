@@ -10,6 +10,7 @@ import numpy as np
 # other imports
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import simpledialog
 import time
 
 # import python libraries
@@ -17,6 +18,14 @@ import builtins
 import math
 import sys
 
+
+# custom tkinter dialog box in order to display the 'task end' message in a larger font
+class CustomDialog(simpledialog.Dialog):
+    def body(self, master):
+        self.state('zoomed')  # Maximize the dialog box
+        self.title("End of Test")
+        self.label = tk.Label(master, text=".המשימה הסתיימה, אנא קראי לבודק", font=("TkDefaultFont", 46))
+        self.label.pack()
 ##################
 # task specifications
 ##################
@@ -46,7 +55,6 @@ TASK_EXAMPLE_3 = ".תחא המישמ לע ןמז ידמ רתוי יזבזבת ל
 TASK_EXAMPLE_4 = ".ימייסתשכ חוורה שקמ לע יצחל\n"
 
 # this is the text to be shown at the end of the test 
-END_TEXT = ".המשימה הסתיימה, אנא קראי לבודק\n" + "\n" * 9
 
 TASK_TEXT_1 = "םוקמב תדמוע תאש יניימד"
 TASK_TEXT_2 = "ןוויכל הנופו"
@@ -130,16 +138,17 @@ INSTRUCTION_TEXT = ".בחרמב תונוש טבמ תודוקנו םינוויכ 
 root = tk.Tk() # open a tkinter window to get the screen size
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
+
 root.withdraw()  # Hide the tkinter window
 
 
-dpi = 120 # set the dpi for the instructions window and the test window
+dpi = 100 # set the dpi for the instructions window and the test window
 # Convert screen size from pixels to inches for matplotlib
 screen_width_in = screen_width / dpi  
 screen_height_in = screen_height / dpi
 print (f'screen width in inches: {screen_width_in}, screen height in inches: {screen_height_in}')
 fontsize_instruction = 15  # Set font size for the instructions window
-fontsize_test = 14  # Set font size for the test window
+fontsize_test = 13  # Set font size for the test window
 
 ##########
 # global varibles for time
@@ -178,8 +187,8 @@ def create_first_instruction_window():
     ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
 
     # create subplots
-    txt_ax = ins_fig.add_subplot(2, 1, 1)
-    img_ax = ins_fig.add_subplot(2, 1, 2)
+    img_ax = ins_fig.add_subplot(1, 2, 1)  # Image on the left
+    txt_ax = ins_fig.add_subplot(1, 2, 2)  # Text on the right
     img_ax.imshow(mpimg.imread('Data/example_image_first_window.png'))
     
     # remove ticks and 'axis lines' from subplots
@@ -207,8 +216,7 @@ def create_second_instruction_window():
     txt_ax.set_xticks([])
     txt_ax.set_yticks([])
 
-    txt_ax.text(0.99, 0.9, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
-    txt_ax.text(0.99, 0.8, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
+    txt_ax.text(0.99, 0.9, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
     ins_fig.tight_layout()
     ins_fig.canvas.mpl_connect('close_event', on_close)
 
@@ -381,7 +389,7 @@ def update_time():
     global start_time, elapsed_time
     elapsed_time = time.time() - start_time
     if elapsed_time > 10.0:
-        show_popup_message(END_TEXT)
+        show_popup_message()
         avg_error = np.mean(builtins.errors)
         builtins.result_file.write('Average Error: ' + str(round(avg_error, 4)))
         builtins.result_file.close()
@@ -391,8 +399,8 @@ def update_time():
    
 
 
-def show_popup_message(message):
-    messagebox.showinfo("Message", message)
+def show_popup_message():
+    d = CustomDialog(root)
 
 ##################
 # math helpers
