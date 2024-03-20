@@ -6,6 +6,7 @@ import matplotlib.image as mpimg
 import matplotlib.lines as lines
 import matplotlib.patches as patches
 import numpy as np
+import matplotlib.gridspec as gridspec
 
 # other imports
 import tkinter as tk
@@ -231,22 +232,25 @@ def create_second_instruction_window():
     ins_fig.canvas.mpl_connect('close_event', on_close)
 
 def create_test_window(SUBJECT_ID):
-    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in),dpi=dpi)
+    test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in), dpi=dpi)
     plt.rcParams['text.usetex'] = False
+
+    # Define the grid
+    gs = gridspec.GridSpec(2, 2, width_ratios=[1.5, 1], height_ratios=[1, 1])
+
     # object array subplot
-    pic_ax = test_fig.add_subplot(1, 2, 1)
-    pic_ax.imshow(mpimg.imread('Data/2019v_object_array.png'))
+    pic_ax = test_fig.add_subplot(gs[:, 0])
+    pic_ax.imshow(mpimg.imread('Data/2019v_object_array.png'), aspect='equal')
     pic_ax.set_xticks([])
     pic_ax.set_yticks([])
     pic_ax.axis('off')
 
+
     # user input subplot
     input_ax = test_fig.add_subplot(1, 2, 2)
     input_ax.axis('equal')
-   
     circle = patches.Circle((0, 0), 1.0, facecolor='none', edgecolor='black', linewidth=3)
     input_ax.add_patch(circle)
-
     upright_line = lines.Line2D((0, 0), (0, 1), linewidth=3, color='black')
     input_ax.add_line(upright_line)
     input_ax.add_line(lines.Line2D((0, -0.03), (1, 0.95), linewidth=3, color='black')) # left arrow wedge
