@@ -215,21 +215,28 @@ def create_first_instruction_window():
     txt_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
     txt_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
     ins_fig.tight_layout()
+    plt.show(block=True)
 
 
 def create_second_instruction_window():
 
     # create figure
-    ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
+    ins2_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
     # create subplots
-    txt_ax = ins_fig.add_subplot(1, 1, 1)
+    txt2_ax = ins2_fig.add_subplot(1, 1, 1)
     # remove ticks and 'axis lines' from plot
-    txt_ax.axis('off')
-    txt_ax.set_xticks([])
-    txt_ax.set_yticks([])
+    txt2_ax.axis('off')
+    txt2_ax.set_xticks([])
+    txt2_ax.set_yticks([])
 
-    txt_ax.text(0.99, 0.9, TASK_EXAMPLE_1, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
-    ins_fig.tight_layout()
+    txt2_ax.text(0.99, 0.9, TASK_EXAMPLE_1, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
+    ins2_fig.tight_layout()
+    # Bring the figure window to the front
+    ins2_fig.canvas.manager.window.attributes('-topmost', 1)
+
+    # After a short delay, unset the always-on-top, making it a normal window again.
+    ins2_fig.canvas.manager.window.after(1000, lambda: ins2_fig.canvas.manager.window.attributes('-topmost', 0))
+    plt.show(block=True)
 
 def create_third_instruction_window():
 
@@ -334,7 +341,9 @@ def load_task(INDEX):
 
     if INDEX == 0: # first example task
         builtins.example_task_instruction.set_text(TASK_EXAMPLE_0)
+
     if INDEX == 1:
+        builtins.fig.canvas.get_tk_widget().master.iconify()
         create_second_instruction_window()
     if INDEX > 0:
         builtins.example_task_instruction.set_text(TASK_EXAMPLE_2)
