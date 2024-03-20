@@ -320,7 +320,7 @@ def load_task(INDEX):
 
 
     instruction_text =  r'$\bf{' + pointing_to + '}$ '  + TASK_TEXT_3  + ' ' + r'$\bf{' + facing_to +  '}$ ' + TASK_TEXT_2 + \
-                   ' ' + r'$\bf{' + located_at + '}$ ' + TASK_TEXT_1 + ' .' + task_id_as_text
+                   ' ' + r'$\bf{' + located_at + '}$ ' + TASK_TEXT_1 + ' .'
                    
     builtins.text_instruction.set_text(instruction_text)
 
