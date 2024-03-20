@@ -198,8 +198,8 @@ def create_first_instruction_window():
     ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
 
     # create subplots
-    img_ax = ins_fig.add_subplot(1, 2, 1)  # Image on the left
-    txt_ax = ins_fig.add_subplot(1, 2, 2)  # Text on the right
+    img_ax = ins_fig.add_subplot(2, 1, 2)  # Image on the bottom
+    txt_ax = ins_fig.add_subplot(2, 1, 1)  # Text on top
     img_ax.imshow(mpimg.imread('Data/example_image_first_window.png'))
     
     # remove ticks and 'axis lines' from subplots
@@ -237,7 +237,6 @@ def create_test_window(SUBJECT_ID):
 
     # Define the grid
     gs = gridspec.GridSpec(2, 2, width_ratios=[1.5, 1], height_ratios=[1, 1])
-
     # object array subplot
     pic_ax = test_fig.add_subplot(gs[:, 0])
     pic_ax.imshow(mpimg.imread('Data/2019v_object_array.png'), aspect='equal')
