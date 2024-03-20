@@ -230,6 +230,7 @@ def create_second_instruction_window():
 
     txt_ax.text(0.99, 0.9, TASK_EXAMPLE_1, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
     ins_fig.tight_layout()
+
 def create_third_instruction_window():
 
     # create figure
@@ -338,13 +339,10 @@ def load_task(INDEX):
     if INDEX > 0:
         builtins.example_task_instruction.set_text(TASK_EXAMPLE_2)
     if INDEX == 3:
-        create_third_instruction_window() # show general instructions at the beginning
-        builtins.fig.canvas.get_tk_widget().master.iconify()
+        create_third_instruction_window() # Show the third instruction window for the three examples
     if INDEX == 4: # minimize the test figure when the first test (real) task is shown
         builtins.fig.canvas.get_tk_widget().master.iconify()
  
-
-    
     builtins.text_bottom.set_text(item_tuple[0])
     builtins.text_top.set_text(item_tuple[1])
     builtins.fig.canvas.draw()
