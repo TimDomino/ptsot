@@ -216,7 +216,21 @@ def create_first_instruction_window():
     txt_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
     ins_fig.tight_layout()
 
+
 def create_second_instruction_window():
+
+    # create figure
+    ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
+    # create subplots
+    txt_ax = ins_fig.add_subplot(1, 1, 1)
+    # remove ticks and 'axis lines' from plot
+    txt_ax.axis('off')
+    txt_ax.set_xticks([])
+    txt_ax.set_yticks([])
+
+    txt_ax.text(0.99, 0.9, TASK_EXAMPLE_1, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
+    ins_fig.tight_layout()
+def create_third_instruction_window():
 
     # create figure
     ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
@@ -318,11 +332,14 @@ def load_task(INDEX):
         text_example.set_text('')
 
     if INDEX == 0: # first example task
-        builtins.example_task_instruction.set_text(TASK_EXAMPLE_1)
+        builtins.example_task_instruction.set_text(TASK_EXAMPLE_0)
+    if INDEX == 1:
+        create_second_instruction_window()
     if INDEX > 0:
         builtins.example_task_instruction.set_text(TASK_EXAMPLE_2)
     if INDEX == 3:
-        create_second_instruction_window() # show general instructions at the beginning
+        create_third_instruction_window() # show general instructions at the beginning
+        builtins.fig.canvas.get_tk_widget().master.iconify()
     if INDEX == 4: # minimize the test figure when the first test (real) task is shown
         builtins.fig.canvas.get_tk_widget().master.iconify()
  
