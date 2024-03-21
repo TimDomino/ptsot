@@ -120,6 +120,10 @@ INSTRUCTION_TEXT = ".ןומיס לגעמ הדיצלו טפשמ עיפוי הנו
                    ".המישמה יבגל תולאש ךל שי םא ןחובה תא ילאש\n"
 
 
+
+##################
+# Global variables for the plot creator functions and instructions
+##################
 fig = None
 answer_line = None
 example_line_1 = None
@@ -132,6 +136,8 @@ text_example = None
 text_instruction = None
 example_task_instruction = None
 
+
+
 ###########
 # Some global variables for the tkinter and font and dpi settings
 ###########
@@ -139,14 +145,14 @@ root = tk.Tk() # open a tkinter window to get the screen size
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.withdraw()  # Hide the tkinter window
-
-
 dpi = 100 # set the dpi for the instructions window and the test window
 # Convert screen size from pixels to inches for matplotlib
 screen_width_in = screen_width / dpi  
 screen_height_in = screen_height / dpi
 fontsize_instruction = 15  # Set font size for the instructions window
 fontsize_test = 13  # Set font size for the test window
+
+
 
 ##########
 # global varibles for time
