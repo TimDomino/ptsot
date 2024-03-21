@@ -15,7 +15,6 @@ from tkinter import simpledialog
 import time
 
 # import python libraries
-import builtins
 import math
 import sys
 
@@ -119,6 +118,19 @@ INSTRUCTION_TEXT = ".ןומיס לגעמ הדיצלו טפשמ עיפוי הנו
                    "?וקווקמה וקה עיבצמ וילא ןוויכב היה ףותה , ץעה ןוויכל הנופו ןומעפה םוקמב תדמוע תייה םאש ןיימדל הלוכי תא םאה .וקווקמ וקכ אמגודב עיפומ רייצל ךירצ היהש וקה\n\n" + \
                    ".המישמה יבגל תולאש ךל שי םא ןחובה תא ילאש\n"
 
+
+fig = None
+answer_line = None
+example_line_1 = None
+example_line_2 = None
+example_line_3 = None
+picture_ax = None
+text_bottom = None
+text_top = None
+text_example = None
+text_instruction = None
+example_task_instruction = None
+
 ###########
 # Some global variables for the tkinter and font and dpi settings
 ###########
@@ -149,7 +161,7 @@ elapsed_time = 0
 # main function
 ##################
 def main():
-    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in
+    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id
 
     matplotlib.rcParams['toolbar'] = 'None'
     subject_id = input("Please insert your participant ID: ")
@@ -166,10 +178,10 @@ def main():
     result_file = open('results-' + str(subject_id) + '.txt', 'w+')
     create_test_window(subject_id)
 
-    builtins.result_file = result_file
-    builtins.errors = []
-    builtins.task_id = 0
-    load_task(builtins.task_id)
+    result_file = result_file
+    errors = []
+    task_id = 0
+    load_task(task_id)
     
     plt.show()
 
@@ -232,6 +244,7 @@ def create_third_instruction_window():
     ins_fig.canvas.mpl_connect('close_event', on_close)
 
 def create_test_window(SUBJECT_ID):
+    global fig, answer_line, example_line_1, example_line_2, example_line_3, picture_ax, text_bottom, text_top, text_example, text_instruction, example_task_instruction
     test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in), dpi=dpi)
     plt.rcParams['text.usetex'] = False
 
@@ -281,22 +294,23 @@ def create_test_window(SUBJECT_ID):
     test_fig.tight_layout()
 
     # event handling
-    builtins.fig = test_fig
-    builtins.answer_line = answer_line
-    builtins.example_line_1 = example_line_1
-    builtins.example_line_2 = example_line_2
-    builtins.example_line_3 = example_line_3
-    builtins.picture_ax = pic_ax
-    builtins.text_bottom = text_bottom
-    builtins.text_top = text_top
-    builtins.text_example = text_example
-    builtins.text_instruction = text_instruction
-    builtins.example_task_instruction = example_task_instruction
+    fig = test_fig
+    answer_line = answer_line
+    example_line_1 = example_line_1
+    example_line_2 = example_line_2
+    example_line_3 = example_line_3
+    picture_ax = pic_ax
+    text_bottom = text_bottom
+    text_top = text_top
+    text_example = text_example
+    text_instruction = text_instruction
+    example_task_instruction = example_task_instruction
     test_fig.canvas.mpl_connect('button_press_event', on_click)
     test_fig.canvas.mpl_connect('key_press_event', on_key_press)
 
 
 def load_task(INDEX):
+    global answer_line,text_example, example_task_instruction, fig, text_bottom, text_top, text_instruction
     task_id_as_text = str(INDEX)
     item_tuple = TASK_ITEMS[INDEX]
     located_at = item_tuple[0].replace(r' ', r'\; ')
@@ -307,91 +321,93 @@ def load_task(INDEX):
     instruction_text =  r'$\bf{' + pointing_to + '}$ '  + TASK_TEXT_3  + ' ' + r'$\bf{' + facing_to +  '}$ ' + TASK_TEXT_2 + \
                    ' ' + r'$\bf{' + located_at + '}$ ' + TASK_TEXT_1
                    
-    builtins.text_instruction.set_text(instruction_text)
+    text_instruction.set_text(instruction_text)
 
     if INDEX == 0: # example case
         create_first_instruction_window() # show general instructions at the beginning
-        builtins.answer_line.set_data([0.0, -0.809], [0.0, 0.587])
+        answer_line.set_data([0.0, -0.809], [0.0, 0.587])
         text_example.set_text('ףות')
     else:
-        builtins.answer_line.set_data([0.0, 0.0], [0.0, 1.0])
+        answer_line.set_data([0.0, 0.0], [0.0, 1.0])
         text_example.set_text('')
 
     if INDEX == 0: # first example task
-        builtins.example_task_instruction.set_text(TASK_EXAMPLE_0)
+        example_task_instruction.set_text(TASK_EXAMPLE_0)
     if INDEX == 1:
         create_second_instruction_window()
     if INDEX > 0:
-        builtins.example_task_instruction.set_text(TASK_EXAMPLE_2)
+        example_task_instruction.set_text(TASK_EXAMPLE_2)
     if INDEX == 3:
         create_third_instruction_window() # Show the third instruction window for the three examples
     if INDEX == 4: # minimize the test figure when the first test (real) task is shown
-        builtins.fig.canvas.get_tk_widget().master.iconify()
+        fig.canvas.get_tk_widget().master.iconify()
  
-    builtins.text_bottom.set_text(item_tuple[0])
-    builtins.text_top.set_text(item_tuple[1])
-    builtins.fig.canvas.draw()
+    text_bottom.set_text(item_tuple[0])
+    text_top.set_text(item_tuple[1])
+    fig.canvas.draw()
 
 
 ##################
 # callbacks
 ##################
 def on_click(EVENT):
+    global answer_line, fig
     if EVENT.inaxes is None:
         return
     length = euclidean_distance([0, 0], [EVENT.xdata, EVENT.ydata])
-    builtins.answer_line.set_data([0.0, EVENT.xdata/length], [0.0, EVENT.ydata/length])
-    builtins.fig.canvas.draw()
+    answer_line.set_data([0.0, EVENT.xdata/length], [0.0, EVENT.ydata/length])
+    fig.canvas.draw()
 
 
 def on_key_press(EVENT):
+    global task_id,result_file,errors,example_line_1,example_line_2,example_line_3,fig
     if EVENT.key == ' ':
-        if builtins.task_id > 0: # exclude example
-            correct_angle = round(TASK_ITEMS[builtins.task_id][3], 4)
+        if task_id > 0: # exclude example
+            correct_angle = round(TASK_ITEMS[task_id][3], 4)
             logged_angle = round(compute_response_line_angle(), 4)
             error = round(angle_difference(correct_angle, logged_angle), 4)
-            builtins.result_file.write(str(builtins.task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
-            builtins.errors.append(error)
+            result_file.write(str(task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
+            errors.append(error)
 
         # If the task id is between 1 and 3, show the corresponding example line
-        if 1 <= builtins.task_id <= 3:
-            if builtins.task_id == 1:
-                builtins.example_line_1.set_visible(True)
-                builtins.fig.canvas.draw()
+        if 1 <= task_id <= 3:
+            if task_id == 1:
+                example_line_1.set_visible(True)
+                fig.canvas.draw()
                 plt.pause(5)
-                builtins.example_line_1.set_visible(False)
+                example_line_1.set_visible(False)
 
-            elif builtins.task_id == 2:
-                builtins.example_line_2.set_visible(True)
-                builtins.fig.canvas.draw()
+            elif task_id == 2:
+                example_line_2.set_visible(True)
+                fig.canvas.draw()
                 plt.pause(5)
-                builtins.example_line_2.set_visible(False)
+                example_line_2.set_visible(False)
             
-            elif builtins.task_id == 3:
-                builtins.example_line_3.set_visible(True)
-                builtins.fig.canvas.draw()
+            elif task_id == 3:
+                example_line_3.set_visible(True)
+                fig.canvas.draw()
                 plt.pause(5)
-                builtins.example_line_3.set_visible(False)
-        builtins.task_id += 1
+                example_line_3.set_visible(False)
+        task_id += 1
 
         
-        if builtins.task_id < len(TASK_ITEMS): # move on to the next task
-            load_task(builtins.task_id)
+        if task_id < len(TASK_ITEMS): # move on to the next task
+            load_task(task_id)
 
         else: # no more tasks, terminate the test
-            avg_error = np.mean(builtins.errors)
-            builtins.result_file.write('Average Error: ' + str(round(avg_error, 4)))
-            builtins.result_file.close()
-            print('The test has terminated successfully. Results saved to file ' + builtins.result_file.name + '.')
+            avg_error = np.mean(errors)
+            result_file.write('Average Error: ' + str(round(avg_error, 4)))
+            result_file.close()
+            print('The test has terminated successfully. Results saved to file ' + result_file.name + '.')
             sys.exit(0)
 
 
 
 def on_close(EVENT):
-    global start_time
+    global fig, start_time, timer
     # When the second instructions window is closed, maximize the test window and start the 5 minute timer
-    builtins.fig.canvas.get_tk_widget().master.deiconify()
-    timer = builtins.fig.canvas.new_timer(interval=1000) # create a timer that fires every 1 second
+    fig.canvas.get_tk_widget().master.deiconify()
+    timer = fig.canvas.new_timer(interval=1000) # create a timer that fires every 1 second
     timer.add_callback(update_time) # add a callback to the timer
     start_time = time.time() # set the start time
     timer.start() # start the timer
@@ -399,14 +415,14 @@ def on_close(EVENT):
 
 
 def update_time():
-    global start_time, elapsed_time
+    global start_time, elapsed_time,result_file,errors
     elapsed_time = time.time() - start_time
     if elapsed_time > 10.0:
         show_popup_message()
-        avg_error = np.mean(builtins.errors)
-        builtins.result_file.write('Average Error: ' + str(round(avg_error, 4)))
-        builtins.result_file.close()
-        print('The test has terminated successfully. Results saved to file ' + builtins.result_file.name + '.')
+        avg_error = np.mean(errors)
+        result_file.write('Average Error: ' + str(round(avg_error, 4)))
+        result_file.close()
+        print('The test has terminated successfully. Results saved to file ' + result_file.name + '.')
         sys.exit(0)    
     print(f'Time elapsed: {elapsed_time} seconds')
    
@@ -419,7 +435,8 @@ def show_popup_message():
 # math helpers
 ##################
 def compute_response_line_angle():
-    answer_line_data = builtins.answer_line.get_data()
+    global answer_line
+    answer_line_data = answer_line.get_data()
     answer_line_endpoint = (answer_line_data[0][1], answer_line_data[1][1])
     upright_endpoint = (0.0, 1.0)
     cosine_value = answer_line_endpoint[0]*upright_endpoint[0] + \
