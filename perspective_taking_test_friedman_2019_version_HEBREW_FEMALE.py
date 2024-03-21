@@ -82,6 +82,25 @@ TASK_ITEMS = [
     ("ףותה", "חפה", "תיבחה", 151)
 ]
 
+TASK_ITEMS_ENGLISH = [
+    ("bell", "tree", "drum", 306),
+    ("drum", "traffic light", "wheel", 57), 
+    ("bell", "tree", "barrel", 326),
+    ("trash can", "drum", "bell", 49),
+    ("wheel", "barrel", "traffic light", 143),
+    ("drum", "tree", "wheel", 249),
+    ("traffic light", "drum", "trash can", 93),
+    ("drum", "bell", "wheel", 165),
+    ("traffic light", "tree", "barrel", 318),
+    ("traffic light", "bell", "wheel", 250),
+    ("barrel", "trash can", "bell", 333),
+    ("trash can", "bell", "traffic light", 268),
+    ("wheel", "traffic light", "tree", 266),
+    ("barrel", "drum", "wheel", 41),
+    ("tree", "bell", "trash can", 25),
+    ("drum", "trash can", "barrel", 151)
+]
+
 ##################
 
 FIRST_INTERACTIVE_EXAMPLE_TEXT = "Here is a sample item that has the correct answer drawn in. Practice inputting your response using the mouse.\n"+ \
