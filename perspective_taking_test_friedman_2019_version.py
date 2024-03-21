@@ -245,6 +245,7 @@ def create_third_instruction_window():
     txt_ax.text(0.99, 0.9, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
     ins_fig.tight_layout()
     ins_fig.canvas.mpl_connect('close_event', on_close)
+    plt.show()
 
 def create_test_window(SUBJECT_ID):
     global fig, answer_line, example_line_1, example_line_2, example_line_3, picture_ax, text_bottom, text_top, text_example, text_instruction, example_task_instruction
@@ -340,10 +341,8 @@ def load_task(INDEX):
         create_second_instruction_window()
     if INDEX > 0:
         example_task_instruction.set_text(TASK_EXAMPLE_2)
-    if INDEX == 3:
+    if INDEX == 4:
         create_third_instruction_window() # Show the third instruction window for the three examples
-    if INDEX == 4: # minimize the test figure when the first test (real) task is shown
-        fig.canvas.get_tk_widget().master.iconify()
  
     text_bottom.set_text(item_tuple[0])
     text_top.set_text(item_tuple[1])
@@ -408,8 +407,6 @@ def on_key_press(EVENT):
 
 def on_close(EVENT):
     global fig, start_time, timer
-    # When the second instructions window is closed, maximize the test window and start the 5 minute timer
-    fig.canvas.get_tk_widget().master.deiconify()
     timer = fig.canvas.new_timer(interval=1000) # create a timer that fires every 1 second
     timer.add_callback(update_time) # add a callback to the timer
     start_time = time.time() # set the start time
