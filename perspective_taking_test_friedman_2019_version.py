@@ -23,7 +23,7 @@ import sys
 # custom tkinter dialog box in order to display the 'task end' message in a larger font
 class CustomDialog(simpledialog.Dialog):
     def body(self, master):
-        self.state('zoomed')  # Maximize the dialog box
+        self.state('normal')  # Maximize the dialog box
         self.title("End of Test")
         self.label = tk.Label(master, text=".המשימה הסתיימה, אנא קראי לבודק", font=("TkDefaultFont", 46))
         self.label.pack()
