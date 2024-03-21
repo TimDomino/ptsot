@@ -211,8 +211,6 @@ def create_third_instruction_window():
     txt_ax.text(0.99, 0.9, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
     ins_fig.tight_layout()
     ins_fig.canvas.mpl_connect('close_event', on_close)
-    plt.show(block=True)
-
 
 def create_test_window(SUBJECT_ID):
     test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in), dpi=dpi)
@@ -304,14 +302,12 @@ def load_task(INDEX):
         builtins.example_task_instruction.set_text(TASK_EXAMPLE_0)
     if INDEX == 1:
         create_second_instruction_window()
-    
     if INDEX > 0:
         builtins.example_task_instruction.set_text(TASK_EXAMPLE_2)
-
+    if INDEX == 3:
+        create_third_instruction_window() # Show the third instruction window for the three examples
     if INDEX == 4: # minimize the test figure when the first test (real) task is shown
         builtins.fig.canvas.get_tk_widget().master.iconify()
-        create_third_instruction_window() # Show the third instruction window for the three examples
-
  
     builtins.text_bottom.set_text(item_tuple[0])
     builtins.text_top.set_text(item_tuple[1])
