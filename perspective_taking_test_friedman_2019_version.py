@@ -311,7 +311,6 @@ def create_test_window(SUBJECT_ID):
 
 def load_task(INDEX):
     global answer_line,text_example, example_task_instruction, fig, text_bottom, text_top, text_instruction
-    task_id_as_text = str(INDEX)
     item_tuple = TASK_ITEMS[INDEX]
     located_at = item_tuple[0].replace(r' ', r'\; ')
     facing_to = item_tuple[1].replace(r' ', r'\; ')
