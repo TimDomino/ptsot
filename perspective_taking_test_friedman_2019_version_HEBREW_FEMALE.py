@@ -38,8 +38,7 @@ TASK_EXAMPLE_0 = ".םאתהב עיפוי וקו ןומיסה לגעמ ףקיה �
 
 # this is the text to be shown alone, before the three practice examples
 TASK_EXAMPLE_1 = ".ךלש הבושתה תא ןמסל ידכ ןומיסה לגעמ לע וקה תא יזיזה אמגוד לכב .ןומיאל תואמגוד שולש ךינפל ועיפוי תעכ\n" +\
-".םודא עבצב עיפות הנוכנה הבושתהו חוורה שקמ לע יצחל ןכמ רחאל\n\n" +\
-".ךשמהל חוורה שקמ לע יצחל\n"
+".םודא עבצב עיפות הנוכנה הבושתהו חוורה שקמ לע יצחל ןכמ רחאל\n\n"
 
 
 # this is the text to be shown below each of the three practice examples lines 
@@ -83,27 +82,6 @@ TASK_ITEMS = [
     ("ףותה", "חפה", "תיבחה", 151)
 ]
 
-
-
-############## OLD task items
-'''
-TASK_ITEMS = [ ("flower", "tree", "cat", 301), # example
-               ("car", "traffic light", "stop sign", 123),
-               ("cat", "tree", "car", 237),
-               ("stop sign", "cat", "house", 83),
-               ("cat", "flower", "car", 156),
-               ("stop sign", "tree", "traffic light", 319),
-               ("stop sign", "flower", "car", 235),
-               ("traffic light", "house", "flower", 333),
-               ("house", "flower", "stop sign", 260),
-               ("car", "stop sign", "tree", 280),
-               ("traffic light", "cat", "car", 48),
-               ("tree", "flower", "house", 26),
-               ("cat", "house", "traffic light", 150)
-             ]
-
-'''
-
 ##################
 
 FIRST_INTERACTIVE_EXAMPLE_TEXT = "Here is a sample item that has the correct answer drawn in. Practice inputting your response using the mouse.\n"+ \
@@ -112,26 +90,15 @@ FIRST_INTERACTIVE_EXAMPLE_TEXT = "Here is a sample item that has the correct ans
       "Match your answer to the correct answer shown. Can you satisfy yourself that this answer is the correct answer\n\n"+ \
       "Please press SPACE when finished"
 
-ENTER_INSTRUCTION_TEXT = "Please press SPACE to enter your response."
-
 INSTRUCTION_TEXT_title = " (Spatial Orientation Test) בחרמב תואצמתה קדבמ \n"
-INSTRUCTION_TEXT = ".בחרמב תונוש טבמ תודוקנו םינוויכ ןיימדל ךלש תלוכיה תא ןחוב הז קדבמ\n" + \
-                   ".ןומיס לגעמו טפשמ עיפוי הנומתל תחתמ .םיטקייבוא רפסמ םימקוממ הבו הנומת יארת קדבמב\n" + \
-                   ".רחא טקייבוא ןוויכל הנופו ,הנומתבש םיטקייבואה דחא םוקמב תדמוע תאש ןיימדל ישקבתת תא\n" + \
-                   ".תראותמה הביטקפסרפהמ ישילש טקייבוא אצמנ וב ןוויכה תא ףקשמש וק רייצל היהת ךלש המישמה\n" + \
-                   ",שדח טקייבוא ןוויכל הנופו הנומתב רחא טקייבוא םוקמב תדמוע תאש ןיימדל ישקבתת בלש לכב\n" + \
-                   ".ךיילא סחיב והשלכ ישילש טקייבוא לש םוקימה תא ףקשמש וק רייצל ןכמ רחאלו\n\n" + \
-                   ".בשחמה לש רבכעה תרזעב הנומתה תיתחתבש ןומיסה לגעמ יבג לע רייצל ךיילע וקה תא\n" + \
-                   ",(ןושארה ץפחה םוקמב) בלש ותואב ךלש ןיימודמה םוקימה תא תפקשמ לגעמה זכרמבש הדוקנה\n" + \
-                   ".(הנופ תא וילא ינשה ץפחה לש ןוויכה) ךלש תניימודמה טבמה תדוקנ תא ףקשמ יכנאה ץחהו\n" + \
-                   ".וללה תודוקנה יתשל סחיב ישילשה ץפחה לש ןוויכה תא גציימש וק רייצל הכירצ תא\n\n" + \
-                   ".דומעה תיתחתבש אמגודל בלשב יטיבה\n" + \
-                   ".ץעה ןוויכל הנופו ןומעפה םוקמב תדמוע תאש ןיימדל תשקבתמ תא וז אמגודב\n" + \
-                   ".וקווקמ וקכ אמגודב עיפומ רייצל ךירצ היהש וקה .ףותה לש ןוויכה לא עיבצמש וק רייצל התייה אמגודב המישמה\n" + \
-                   "?וקווקמה וקה עיבצמ וילא ןוויכב היה ףותה ,ץעה ןוויכל הנופו ןומעפה םוקמב תדמוע תייה םאש ןיימדל הלוכי תא םאה\nֿ\n" + \
-                   ".המישמה יבגל תולאש ךל שי םא ןחובה תא ילאש\n\n" + \
-                   ".ךשמהל חוורה שקמ לע יצחל\n" 
-
+INSTRUCTION_TEXT = ".ןומיס לגעמ הדיצלו טפשמ עיפוי הנומתל תחתמ .םיטקייבוא רפסמ םימקוממ הבו הנומת יארת קדבמב .בחרמב תונוש טבמ תודוקנו םינוויכ ןיימדל ךלש תלוכיה תא ןחוב הז קדבמ\n" + \
+                   ".תראותמה הביטקפסרפהמ ישילש טקייבוא אצמנ וב ןוויכה תא ףקשמש וק רייצל היהת ךלש המישמה .רחא טקייבוא ןוויכל הנופו ,הנומתבש םיטקייבואה דחא םוקמב תדמוע תאש ןיימדל ישקבתת תא\n" + \
+                   ".ךיילא סחיב והשלכ ישילש טקייבוא לש םוקימה תא ףקשמש וק רייצל ןכמ רחאלו ,שדח טקייבוא ןוויכל הנופו הנומתב רחא טקייבוא םוקמב תדמוע תאש ןיימדל ישקבתת בלש לכב\n\n" + \
+                   ",(ןושארה ץפחה םוקמב) בלש ותואב ךלש ןיימודמה םוקימה תא תפקשמ לגעמה זכרמבש הדוקנה .בשחמה לש רבכעה תרזעב הנומתה דצלש ןומיסה לגעמ יבג לע רייצל ךיילע וקה תא\n" + \
+                   ".וללה תודוקנה יתשל סחיב ישילשה ץפחה לש ןוויכה תא גציימש וק רייצל הכירצ תא .(הנופ תא וילא ינשה ץפחה לש ןוויכה) ךלש תניימודמה טבמה תדוקנ תא ףקשמ יכנאה ץחהו\n\n" + \
+                   ".ףותה לש ןוויכה לא עיבצמש וק רייצל התייה אמגודב המישמה .ץעה ןוויכל הנופו ןומעפה םוקמב תדמוע תאש ןיימדל תשקבתמ תא וז אמגודב .דומעה תיתחתבש אמגודל בלשב יטיבה\n" + \
+                   "?וקווקמה וקה עיבצמ וילא ןוויכב היה ףותה , ץעה ןוויכל הנופו ןומעפה םוקמב תדמוע תייה םאש ןיימדל הלוכי תא םאה .וקווקמ וקכ אמגודב עיפומ רייצל ךירצ היהש וקה\n\n" + \
+                   ".המישמה יבגל תולאש ךל שי םא ןחובה תא ילאש\n"
 
 ###########
 # Some global variables for the tkinter and font and dpi settings
@@ -191,26 +158,25 @@ def main():
 # plot creator functions
 ##################
 
-##################1
 def create_first_instruction_window():
 
     # create figure
     ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
 
-    # create subplots
-    img_ax = ins_fig.add_subplot(2, 1, 2)  # Image on the bottom
-    txt_ax = ins_fig.add_subplot(2, 1, 1)  # Text on top
-    img_ax.imshow(mpimg.imread('Data/example_image_first_window.png'))
-    
+    # create subplots with different sizes
+    gs = ins_fig.add_gridspec(3, 1)  # adjust the number of rows as needed
+    txt_ax = ins_fig.add_subplot(gs[0, :])  # Text on top
+    img_ax = ins_fig.add_subplot(gs[1:, :])  # Image on the bottom
+
+    # load image
+    img = mpimg.imread('Data/example_image_first_window.png')
+
+    # display image
+    img_ax.imshow(img, aspect='equal')
+
     # remove ticks and 'axis lines' from subplots
     img_ax.axis('off')
-    img_ax.set_xticks([])
-    img_ax.set_yticks([])
     txt_ax.axis('off')
-    txt_ax.set_xticks([])
-    txt_ax.set_yticks([])
-
-
 
     txt_ax.text(0.99, 0.9, INSTRUCTION_TEXT_title, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction, weight='bold')
     txt_ax.text(0.99, 0.8, INSTRUCTION_TEXT, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction)
@@ -270,7 +236,7 @@ def create_test_window(SUBJECT_ID):
 
 
     # user input subplot
-    input_ax = test_fig.add_subplot(1, 2, 2)
+    input_ax = test_fig.add_subplot(gs[:, 1])
     input_ax.axis('equal')
     circle = patches.Circle((0, 0), 1.0, facecolor='none', edgecolor='black', linewidth=3)
     input_ax.add_patch(circle)
