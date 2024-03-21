@@ -342,8 +342,7 @@ def load_task(INDEX):
     if INDEX > 0:
         example_task_instruction.set_text(TASK_EXAMPLE_2)
     if INDEX == 4:
-        create_third_instruction_window() # Show the third instruction window for the three examples
- 
+        create_third_instruction_window() # Show the final instructions before the test starts
     text_bottom.set_text(item_tuple[0])
     text_top.set_text(item_tuple[1])
     fig.canvas.draw()
