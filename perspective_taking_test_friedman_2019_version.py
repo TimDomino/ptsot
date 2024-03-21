@@ -81,7 +81,7 @@ TASK_ITEMS = [
     ("ץעה", "ןומעפה", "חפה", 25),
     ("ףותה", "חפה", "תיבחה", 151)
 ]
-
+# First 4 are example items, the next 12 are the actual test items
 TASK_ITEMS_ENGLISH = [
     ("bell", "tree", "drum", 306),
     ("drum", "traffic light", "wheel", 57), 
