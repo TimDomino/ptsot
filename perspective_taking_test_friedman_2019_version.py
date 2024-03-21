@@ -8,6 +8,7 @@ import matplotlib.patches as patches
 import numpy as np
 import matplotlib.gridspec as gridspec
 
+
 # other imports
 import tkinter as tk
 from tkinter import messagebox
@@ -162,7 +163,6 @@ elapsed_time = 0
 ##################
 def main():
     global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id
-
     matplotlib.rcParams['toolbar'] = 'None'
     subject_id = input("Please insert your participant ID: ")
     input_values = input("Enter dpi and font size for the instructions window and the test window separated by a space, press 'Enter' for default values(Example input- 100 13 15): ")
@@ -218,6 +218,8 @@ def create_second_instruction_window():
 
     # create figure
     ins_fig = plt.figure("Instructions", figsize = (screen_width_in, screen_height_in),dpi=dpi)
+    print("success")
+
     # create subplots
     txt_ax = ins_fig.add_subplot(1, 1, 1)
     # remove ticks and 'axis lines' from plot
@@ -227,6 +229,7 @@ def create_second_instruction_window():
 
     txt_ax.text(0.99, 0.9, TASK_EXAMPLE_1, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
     ins_fig.tight_layout()
+    plt.show()
 
 def create_third_instruction_window():
 
@@ -333,6 +336,7 @@ def load_task(INDEX):
     if INDEX == 0: # first example task
         example_task_instruction.set_text(TASK_EXAMPLE_0)
     if INDEX == 1:
+        print("INDEX 1")
         create_second_instruction_window()
     if INDEX > 0:
         example_task_instruction.set_text(TASK_EXAMPLE_2)
