@@ -11,7 +11,6 @@ import matplotlib.gridspec as gridspec
 
 # other imports
 import tkinter as tk
-from tkinter import messagebox
 from tkinter import simpledialog
 import time
 
@@ -152,12 +151,6 @@ screen_width_in = screen_width / dpi
 screen_height_in = screen_height / dpi
 fontsize_instruction = 15  # Set font size for the instructions window
 fontsize_test = 13  # Set font size for the test window
-example_task_text_properties = {
-    0: {"coords": (1.5, -1.3), "fontsize": fontsize_test, "alignment": ('right', 'top')},
-    1: {"coords": (-2.0, -1.0), "fontsize": fontsize_test + 2, "alignment": ('center', 'center')}}
-# example_task_instruction = input_ax.text(1.5, -1.3, ' ', fontsize=fontsize_test,
-#                                              horizontalalignment='right', verticalalignment='top')
-
 
 ##########
 # global varibles for time
@@ -304,11 +297,6 @@ def create_test_window(SUBJECT_ID):
     # example_task_instruction = pic_ax.text(300, 480, ' ', fontsize=fontsize_test, horizontalalignment='center')
     example_task_instruction = input_ax.text(1.5, -1.3, ' ', fontsize=fontsize_test,
                                               horizontalalignment='right', verticalalignment='top')
-
-    # example_task_instruction = input_ax.text(*example_task_instruction_properties["coords"], ' ',
-    #                                      fontsize=example_task_instruction_properties["fontsize"],
-    #                                      horizontalalignment=example_task_instruction_properties["alignment"][0],
-    #                                      verticalalignment=example_task_instruction_properties["alignment"][1])
     input_ax.set_xlim(-1.5, 1.5)
     input_ax.set_ylim(-1.5, 1.5)
     input_ax.set_xticks([])
@@ -332,7 +320,7 @@ def create_test_window(SUBJECT_ID):
 
 
 def load_task(INDEX):
-    global answer_line,text_example, example_task_instruction, fig, text_bottom, text_top, text_instruction, example_task_instruction_properties
+    global answer_line,text_example, example_task_instruction, fig, text_bottom, text_top, text_instruction
 
     item_tuple = TASK_ITEMS[INDEX]
     located_at = item_tuple[0].replace(r' ', r'\; ')
@@ -345,10 +333,6 @@ def load_task(INDEX):
                    
     text_instruction.set_text(instruction_text)
     
-    if INDEX == 0: # example case
-        example_task_instruction_properties = example_task_text_properties[0]
-    else:
-        example_task_instruction_properties = example_task_text_properties[1]
     
     if INDEX == 0: # example case
         create_first_instruction_window() # show general instructions at the beginning
