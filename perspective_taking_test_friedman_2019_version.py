@@ -18,6 +18,7 @@ import time
 import math
 import sys
 
+from bidi import algorithm as bidialg
 
 # custom tkinter dialog box in order to display the 'task end' message in a larger font
 class CustomDialog(simpledialog.Dialog):
@@ -30,10 +31,12 @@ class CustomDialog(simpledialog.Dialog):
 # task specifications
 ##################
 # this is the text to be shown on top of the practice first example
-# (the one that was presented initially as a fixed image)
-TASK_EXAMPLE_0 = ".םאתהב עיפוי וקו ןומיסה לגעמ ףקיה לע יצחל ,הבושתה ןומיס לע ןמאתהל ידכ .רבכעה תרזעב ךלש הבושתה ןומיס לע ינמאתה .הנוכנה הבושתה תנמוסמ וב המגודל ליגרת ךינפל\n" + \
-                 ".תנמוסמה הנוכנה הבושתל ךלש הבושתה תא ימיאתה .היוצרה הבושתל רבכעה תרזעב ןומיסה לגעמ ךרואל וקה תא תא יזיזה\n\n" + \
-                 ".ימייסתשכ חוורה שקמ לע יצחל\n"
+# (the one that was presented initially as a fixed image
+TASK_EXAMPLE_0 = "לפניך תרגיל לדוגמה בו מסומנת התשובה הנכונה.  התאמני על סימון התשובה שלך בעזרת העכבר. כדי להתאמן על סימון התשובה, לחצי על היקף מעגל הסימון וקו יופיע בהתאם. הזיזי את את הקו לאורך מעגל הסימון בעזרת העכבר לתשובה הרצויה. התאימי את התשובה שלך לתשובה הנכונה המסומנת. לחצי על מקש הרווח כשתסיימי"
+
+# add break line at every period, in addition to displaying the text from right to left correctly
+TASK_EXAMPLE_0 = bidialg.get_display(TASK_EXAMPLE_0).replace(".", ".\n")
+
 
 # this is the text to be shown alone, before the three practice examples
 TASK_EXAMPLE_1 = ".ךלש הבושתה תא ןמסל ידכ ןומיסה לגעמ לע וקה תא יזיזה אמגוד לכב .ןומיאל תואמגוד שולש ךינפל ועיפוי תעכ\n" +\
@@ -300,8 +303,8 @@ def create_test_window(SUBJECT_ID):
     input_ax.set_xticks([])
     input_ax.set_yticks([])
     input_ax.axis('off')
-
     test_fig.tight_layout()
+
 
     # event handling
     fig = test_fig
