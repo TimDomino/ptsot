@@ -134,8 +134,6 @@ text_top = None
 text_example = None
 text_instruction = None
 example_task_instruction = None
-example_task_instruction_properties = None
-
 
 
 ###########
@@ -255,9 +253,10 @@ def create_test_window(SUBJECT_ID):
     global fig, answer_line, example_line_1, example_line_2, example_line_3, picture_ax, text_bottom, text_top, text_example, text_instruction, example_task_instruction
     test_fig = plt.figure("Perspective Taking Test - Participant " + str(SUBJECT_ID), figsize = (screen_width_in, screen_height_in), dpi=dpi)
     plt.rcParams['text.usetex'] = False
-
     # Define the grid
     gs = gridspec.GridSpec(2, 2, width_ratios=[1.5, 1], height_ratios=[1, 1])
+
+
     # object array subplot
     pic_ax = test_fig.add_subplot(gs[:, 0])
     pic_ax.imshow(mpimg.imread('Data/2019v_object_array.png'), aspect='equal')
@@ -295,12 +294,13 @@ def create_test_window(SUBJECT_ID):
     text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=fontsize_test, horizontalalignment='center')
     text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=fontsize_test, horizontalalignment='center')
     # example_task_instruction = pic_ax.text(300, 480, ' ', fontsize=fontsize_test, horizontalalignment='center')
-    example_task_instruction = input_ax.text(1.5, -1.3, ' ', fontsize=fontsize_test,
-                                              horizontalalignment='right', verticalalignment='top')
+    example_task_instruction = input_ax.text(1.5, -1.3, ' ', fontsize=fontsize_test,horizontalalignment='right', verticalalignment='top',wrap=True)
     input_ax.set_xlim(-1.5, 1.5)
     input_ax.set_ylim(-1.5, 1.5)
     input_ax.set_xticks([])
     input_ax.set_yticks([])
+    input_ax.axis('off')
+
     test_fig.tight_layout()
 
     # event handling
