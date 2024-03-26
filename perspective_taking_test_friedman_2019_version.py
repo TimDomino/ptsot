@@ -41,7 +41,6 @@ class CustomDialog(simpledialog.Dialog):
 TASK_EXAMPLE_0 = "לפניך תרגיל לדוגמה בו מסומנת התשובה הנכונה.  התאמני על סימון התשובה שלך בעזרת העכבר. כדי להתאמן על סימון התשובה, לחצי על היקף מעגל הסימון וקו יופיע בהתאם. הזיזי את את הקו לאורך מעגל הסימון בעזרת העכבר לתשובה הרצויה. התאימי את התשובה שלך לתשובה הנכונה המסומנת. לחצי על מקש הרווח כשתסיימי"
 
 # add break line at every period, in addition to displaying the text from right to left correctly
-TASK_EXAMPLE_0 = bidialg.get_display(TASK_EXAMPLE_0).replace(".", ".\n")
 
 
 # this is the text to be shown alone, before the three practice examples
@@ -121,7 +120,7 @@ example_task_instruction = None
 
 ###########
 # Some global variables for the tkinter and font and dpi settings
-###########
+#########
 root = tk.Tk() # open a tkinter window to get the screen size
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -145,7 +144,8 @@ elapsed_time = 0
 
 
 def main():
-    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id, result_csv, csv_file_name
+    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id,result_csv, csv_file_name,TASK_EXAMPLE_0
+    TASK_EXAMPLE_0 = linebreak_text(RTL_text(TASK_EXAMPLE_0))
     matplotlib.rcParams['toolbar'] = 'None'
     subject_id = input("Please insert your participant ID: ")
     input_values = input("Enter dpi and font size for the instructions window and the test window separated by a space, press 'Enter' for default values(Example input- 100 13 15): ")
@@ -443,7 +443,6 @@ def update_time():
 
 def show_popup_message():
     d = CustomDialog(root)
-
 ##################
 # math helpers
 ##################
@@ -473,11 +472,43 @@ def euclidean_distance(POINT_1, POINT_2):
 def angle_between_normalized_2d_vectors(VEC1, VEC2):
     return math.atan2(VEC1[0]*VEC2[1] - VEC1[1]*VEC2[0], VEC1[0]*VEC2[0] + VEC1[1]*VEC2[1])
 
-
 def angle_difference(ANGLE_1, ANGLE_2):
     phi = math.fmod(abs(ANGLE_2-ANGLE_1), 360)
     distance = 360 - phi if phi > 180 else phi
     return distance
+
+##################
+# Text helpers
+##################
+
+def RTL_text(text):
+    '''
+    This function receives a text string and returns the same text string with the proper RTL formatting
+    it -
+    1. flips the text from left to right and adds break lines at every period
+    2. splits the text into sentences by periods
+    3. reverses the order of the sentences in the text
+    4. returns properly formatted text
+    :param text: string
+    :return: string
+
+    '''
+    text = bidialg.get_display(text)
+    # New code to reverse sentence order
+    sentences = text.split('.')
+    sentences.reverse()
+    text = '.'.join(sentences)
+    return text
+def linebreak_text(text):
+    '''
+    This function receives a text string and returns the same text string with a break line at every period
+    :param text: string
+    :return: string
+
+    '''
+    text = text.replace(".", "\n .")
+    return text
+
 
 
 if __name__ == '__main__':
