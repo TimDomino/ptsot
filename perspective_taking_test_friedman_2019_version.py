@@ -13,12 +13,18 @@ import matplotlib.gridspec as gridspec
 import tkinter as tk
 from tkinter import simpledialog
 import time
+from datetime import datetime
 
 # import python libraries
 import math
 import sys
 
 from bidi import algorithm as bidialg
+
+# Get the current date and time
+now = datetime.now()
+# Format the date and time as a string
+date_time = now.strftime("%Y-%m-%d_%H-%M-%S")
 
 # custom tkinter dialog box in order to display the 'task end' message in a larger font
 class CustomDialog(simpledialog.Dialog):
@@ -113,7 +119,6 @@ text_example = None
 text_instruction = None
 example_task_instruction = None
 
-
 ###########
 # Some global variables for the tkinter and font and dpi settings
 ###########
@@ -134,14 +139,13 @@ fontsize_test = 13  # Set font size for the test window
 start_time = 0
 timer = None
 elapsed_time = 0
-
 ##################
 # main function
 ##################
 
 
 def main():
-    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id
+    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id, result_csv, csv_file_name
     matplotlib.rcParams['toolbar'] = 'None'
     subject_id = input("Please insert your participant ID: ")
     input_values = input("Enter dpi and font size for the instructions window and the test window separated by a space, press 'Enter' for default values(Example input- 100 13 15): ")
@@ -155,9 +159,14 @@ def main():
 
     print (f'screen width in inches: {screen_width_in}, screen height in inches: {screen_height_in}')
     result_file = open('results-' + str(subject_id) + '.txt', 'w+')
+    csv_file_name = 'results-' + str(subject_id) + '-' + date_time + '.csv'
+    with open(csv_file_name, 'a', newline='') as result_csv:
+        result_csv.write('task_id' + ',' + 'correct_angle' + ',' + 'logged_angle' + ',' + 'error' + ',' + 'Time elapsed (s)' + '\n')
+
     create_test_window(subject_id)
 
     result_file = result_file
+    result_csv = result_csv
     errors = []
     task_id = 0
     load_task(task_id)
@@ -348,14 +357,20 @@ def on_click(EVENT):
 
 
 def on_key_press(EVENT):
-    global task_id,result_file,errors,example_line_1,example_line_2,example_line_3,fig
+    global task_id,result_file,errors,example_line_1,example_line_2,example_line_3,fig, result_csv, csv_file_name
     if EVENT.key == ' ':
         if task_id > 0: # exclude example
             correct_angle = round(TASK_ITEMS[task_id][3], 4)
             logged_angle = round(compute_response_line_angle(), 4)
             error = round(angle_difference(correct_angle, logged_angle), 4)
             result_file.write(str(task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + '\n')
+            
+            with open(csv_file_name, 'a', newline='') as result_csv:
+                result_csv.write(str(task_id) + ',' + str(correct_angle) + ',' + str(logged_angle) + ',' + str(error) + ',' + str(elapsed_time) + '\n')
+
             errors.append(error)
+            
+                        
 
         # If the task id is between 1 and 3, show the corresponding example line
         if 1 <= task_id <= 3:
@@ -384,8 +399,14 @@ def on_key_press(EVENT):
 
         else: # no more tasks, terminate the test
             avg_error = np.mean(errors)
-            result_file.write('Average Error: ' + str(round(avg_error, 4)))
+            test_avg_error = np.mean(errors[4:]) # mean error of only the test items
+            result_file.write('Average Error: ' + str(round(avg_error, 4)) + ','  +
+                              'Test Only Average Error: ' + str(round(test_avg_error, 4)))
             result_file.close()
+            # with open(csv_file_name, 'a', newline='') as result_csv:
+            #     result_csv.write('Average Error: ' + ',' + str(round(avg_error, 4) + '\n'))
+            #     result_csv.write('Test Only Average Error: ' + ',' + str(round(test_avg_error, 4)) + '\n')
+
             print('The test has terminated successfully. Results saved to file ' + result_file.name + '.')
             sys.exit(0)
 
@@ -401,15 +422,21 @@ def on_close(EVENT):
 
 
 def update_time():
-    global start_time, elapsed_time,result_file,errors
+    global start_time, elapsed_time,result_file,errors, result_csv, csv_file_name
     elapsed_time = time.time() - start_time
     if elapsed_time > 10.0:
         show_popup_message()
         avg_error = np.mean(errors)
-        result_file.write('Average Error: ' + str(round(avg_error, 4)))
+        test_avg_error = np.mean(errors[4:]) # mean error of only the test items
+        result_file.write('Average Error: ' + str(round(avg_error, 4)) + ',' +
+                          'Test Only Average Error: ' + str(round(test_avg_error, 4)))      
         result_file.close()
+        # with open(csv_file_name, 'a', newline='') as result_csv:
+        #     result_csv.write('Average Error: ' + ',' + str(round(avg_error, 4)) + '\n')
+        #     result_csv.write('Test Only Average Error: ' + ',' + str(round(test_avg_error, 4) + '\n')
+
         print('The test has terminated successfully. Results saved to file ' + result_file.name + '.')
-        sys.exit(0)    
+        sys.exit(0)
     print(f'Time elapsed: {elapsed_time} seconds')
    
 
