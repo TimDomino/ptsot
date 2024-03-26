@@ -83,33 +83,8 @@ TASK_ITEMS = [
     ("ץעה", "ןומעפה", "חפה", 25),
     ("ףותה", "חפה", "תיבחה", 151)
 ]
-# First 4 are example items, the next 12 are the actual test items
-TASK_ITEMS_ENGLISH = [
-    ("bell", "tree", "drum", 306),
-    ("drum", "traffic light", "wheel", 57), 
-    ("bell", "tree", "barrel", 326),
-    ("trash can", "drum", "bell", 49),
-    ("wheel", "barrel", "traffic light", 143),
-    ("drum", "tree", "wheel", 249),
-    ("traffic light", "drum", "trash can", 93),
-    ("drum", "bell", "wheel", 165),
-    ("traffic light", "tree", "barrel", 318),
-    ("traffic light", "bell", "wheel", 250),
-    ("barrel", "trash can", "bell", 333),
-    ("trash can", "bell", "traffic light", 268),
-    ("wheel", "traffic light", "tree", 266),
-    ("barrel", "drum", "wheel", 41),
-    ("tree", "bell", "trash can", 25),
-    ("drum", "trash can", "barrel", 151)
-]
 
 ##################
-
-FIRST_INTERACTIVE_EXAMPLE_TEXT = "Here is a sample item that has the correct answer drawn in. Practice inputting your response using the mouse.\n"+ \
-      "To practice marking your answer, click on the arrow circle and a line will appear.\n" + \
-      "Drag the line around the arrow circle using the mouse to the desired response.\n" + \
-      "Match your answer to the correct answer shown. Can you satisfy yourself that this answer is the correct answer\n\n"+ \
-      "Please press SPACE when finished"
 
 INSTRUCTION_TEXT_title = " (Spatial Orientation Test) בחרמב תואצמתה קדבמ \n"
 INSTRUCTION_TEXT = ".ןומיס לגעמ הדיצלו טפשמ עיפוי הנומתל תחתמ .םיטקייבוא רפסמ םימקוממ הבו הנומת יארת קדבמב .בחרמב תונוש טבמ תודוקנו םינוויכ ןיימדל ךלש תלוכיה תא ןחוב הז קדבמ\n" + \
@@ -160,12 +135,11 @@ start_time = 0
 timer = None
 elapsed_time = 0
 
-
-
-
 ##################
 # main function
 ##################
+
+
 def main():
     global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id
     matplotlib.rcParams['toolbar'] = 'None'
@@ -194,6 +168,7 @@ def main():
 # plot creator functions
 ##################
 
+
 def create_first_instruction_window():
 
     # create figure
@@ -205,7 +180,7 @@ def create_first_instruction_window():
     img_ax = ins_fig.add_subplot(gs[1:, :])  # Image on the bottom
 
     # load image
-    img = mpimg.imread('Data/example_image_first_window.png')
+    img = mpimg.imread('Data/heb_screenshot_.png')
 
     # display image
     img_ax.imshow(img, aspect='equal')
@@ -235,6 +210,7 @@ def create_second_instruction_window():
     txt_ax.text(0.99, 0.9, TASK_EXAMPLE_1, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
     ins_fig.tight_layout()
     plt.show()
+
 
 def create_third_instruction_window():
 
@@ -297,7 +273,7 @@ def create_test_window(SUBJECT_ID):
     text_example = input_ax.text(-1.0, 0.58, 'text_example', fontsize=fontsize_test, horizontalalignment='center')
     text_instruction = input_ax.text(0.0, -1.2, 'text_instruction', fontsize=fontsize_test, horizontalalignment='center')
     # example_task_instruction = pic_ax.text(300, 480, ' ', fontsize=fontsize_test, horizontalalignment='center')
-    example_task_instruction = input_ax.text(1.5, -1.3, ' ', fontsize=fontsize_test,horizontalalignment='right', verticalalignment='top',wrap=True)
+    example_task_instruction = input_ax.text(1.45, -1.3, ' ', fontsize=fontsize_test,horizontalalignment='right', verticalalignment='top',wrap=True)
     input_ax.set_xlim(-1.5, 1.5)
     input_ax.set_ylim(-1.5, 1.5)
     input_ax.set_xticks([])
@@ -354,8 +330,8 @@ def load_task(INDEX):
         example_task_instruction.set_text(TASK_EXAMPLE_2)
     if INDEX == 4:
         create_third_instruction_window() # Show the final instructions before the test starts
-    text_bottom.set_text(item_tuple[0])
-    text_top.set_text(item_tuple[1])
+    text_bottom.set_text(item_tuple[0][:-1]) # removed the hey hayedia from the word
+    text_top.set_text(item_tuple[1][:-1]) # removed the hey hayedia from the word
     fig.canvas.draw()
 
 
