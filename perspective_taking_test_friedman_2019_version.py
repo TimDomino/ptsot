@@ -140,7 +140,7 @@ elapsed_time = 0
 
 
 def main():
-    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id,TASK_EXAMPLE_0
+    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id,result_csv, csv_file_name,TASK_EXAMPLE_0
     TASK_EXAMPLE_0 = linebreak_text(RTL_text(TASK_EXAMPLE_0))
     matplotlib.rcParams['toolbar'] = 'None'
     subject_id = input("Please insert your participant ID: ")
