@@ -47,6 +47,7 @@ TASK_EXAMPLE_0 = "לפניך תרגיל לדוגמה בו מסומנת התשו�
 TASK_EXAMPLE_1 = ".ךלש הבושתה תא ןמסל ידכ ןומיסה לגעמ לע וקה תא יזיזה אמגוד לכב .ןומיאל תואמגוד שולש ךינפל ועיפוי תעכ\n" +\
 ".םודא עבצב עיפות הנוכנה הבושתהו חוורה שקמ לע יצחל ןכמ רחאל\n\n"
 
+TASK_EXAMPLE_8 = "כעת יתחיל המבדק. לרשותך 5 דקות להשלים 12 משימות. נסי לענות במדויק, אבל אל תבזבזי יותר מדי זמן על משימה אחת. אם יש לך שאלות אחרונות לגבי המבדק שאלי עכשיו. אם לא, הודיעי לבודק שאת מוכנה להתחיל."
 
 # this is the text to be shown below each of the three practice examples lines 
 # below the TASK_TEXT_1, TASK_TEXT_2, and TASK_TEXT_3 combination
@@ -144,8 +145,9 @@ elapsed_time = 0
 
 
 def main():
-    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id,result_csv, csv_file_name,TASK_EXAMPLE_0
+    global dpi ,fontsize_instruction, fontsize_test, screen_height_in, screen_width_in, result_file, errors, task_id,result_csv, csv_file_name,TASK_EXAMPLE_0, TASK_EXAMPLE_3,TASK_EXAMPLE_8
     TASK_EXAMPLE_0 = linebreak_text(RTL_text(TASK_EXAMPLE_0))
+    TASK_EXAMPLE_3 = linebreak_text(RTL_text(TASK_EXAMPLE_8))
     matplotlib.rcParams['toolbar'] = 'None'
     subject_id = input("Please insert your participant ID: ")
     input_values = input("Enter dpi and font size for the instructions window and the test window separated by a space, press 'Enter' for default values(Example input- 100 13 15): ")
@@ -232,7 +234,7 @@ def create_third_instruction_window():
     txt_ax.set_xticks([])
     txt_ax.set_yticks([])
 
-    txt_ax.text(0.99, 0.9, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='right', fontsize=fontsize_instruction+5, weight='bold')
+    txt_ax.text(0.99, 0.9, TASK_EXAMPLE_3, verticalalignment='top', horizontalalignment='center', fontsize=fontsize_instruction+5, weight='bold')
     ins_fig.tight_layout()
     ins_fig.canvas.mpl_connect('close_event', on_close)
     plt.show()
